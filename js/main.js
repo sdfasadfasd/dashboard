@@ -194,8 +194,8 @@
   function initMap() {
     var mapDom = document.getElementById('chartMap'); if (!mapDom) return;
     mapDom.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8899cc;font-size:12px;">武汉市地图加载中...</div>';
-    // 武汉市 GeoJSON (DataV)
-    fetch('https://geo.datav.aliyun.com/areas_v3/bound/420100_full.json')
+    // 武汉市 GeoJSON（本地文件）
+    fetch('js/wuhan.json')
       .then(function(res){return res.json();})
       .then(function(geoJSON){
         mapDom.innerHTML = '';
