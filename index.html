@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>好来客食品集团有限公司湖北总部</title>
+  <link rel="stylesheet" href="https://gitee.com/hyy_888/dashboardpage/raw/master/css/style.css">
+  <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <div class="dashboard">
+    <!-- ====== 标题栏 ====== -->
+    <header class="header">
+      <div class="header-left">
+        <span class="header-icon">◆</span>
+        <h1>好来客食品集团有限公司湖北总部</h1>
+        <span class="header-badge">LIVE</span>
+      </div>
+      <div class="header-center"><div class="decorative-line"></div></div>
+      <div class="header-right">
+        <span class="datetime" id="datetime">--</span>
+        <button class="refresh-btn" id="refreshBtn"><span class="refresh-icon">↻</span> 刷新</button>
+      </div>
+    </header>
+
+    <!-- ====== KPI 行：5卡片 ====== -->
+    <section class="kpi-row">
+      <div class="kpi-card"><div class="kpi-icon" style="--card-color:#00e676"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M5 10v11m14-11v11M9 21v-7h6v7"/></svg></div><div class="kpi-info"><span class="kpi-label">覆盖城市</span><span class="kpi-value" id="kpiCities">--</span><span class="kpi-trend up" id="kpiCitiesTrend">↑ --</span></div></div>
+      <div class="kpi-card"><div class="kpi-icon" style="--card-color:#ff9100"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="23 7 16 12 23 17 23 7"/><line x1="5" y1="7" x2="9" y2="7"/><line x1="5" y1="11" x2="11" y2="11"/></svg></div><div class="kpi-info"><span class="kpi-label">订单总数</span><span class="kpi-value" id="kpiOrders">--</span><span class="kpi-trend up" id="kpiOrdersTrend">↑ --</span></div></div>
+      <div class="kpi-card"><div class="kpi-icon" style="--card-color:#a78bfa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="kpi-info"><span class="kpi-label">服务人次</span><span class="kpi-value" id="kpiService">--</span><span class="kpi-trend up" id="kpiServiceTrend">↑ --</span></div></div>
+      <div class="kpi-card"><div class="kpi-icon" style="--card-color:#ff4081"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="kpi-info"><span class="kpi-label">准时交付率</span><span class="kpi-value" id="kpiRate">--</span><span class="kpi-trend up" id="kpiRateTrend">↑ --</span></div></div>
+      <div class="kpi-card"><div class="kpi-icon" style="--card-color:#1de9b6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/></svg></div><div class="kpi-info"><span class="kpi-label">溯源合格率</span><span class="kpi-value" id="kpiTrace">--</span><span class="kpi-trend up" id="kpiTraceTrend">↑ --</span></div></div>
+    </section>
+
+    <!-- ====== 主内容区 ====== -->
+    <div class="main-area">
+      <!-- 左列：溯源检测 + 车辆轨迹 + 服务人次 -->
+      <div class="side-col side-left">
+        <div class="panel info-panel"><div class="panel-header"><span class="panel-dot"></span><h2>溯源检测数据</h2></div><div class="panel-body" id="traceBody"></div></div>
+        <div class="panel info-panel"><div class="panel-header"><span class="panel-dot" style="background:#00e676;box-shadow:0 0 8px #00e676;"></span><h2>车辆轨迹信息</h2></div><div class="panel-body" id="vehicleBody"></div></div>
+        <div class="panel info-panel"><div class="panel-header"><span class="panel-dot" style="background:#a78bfa;box-shadow:0 0 8px #a78bfa;"></span><h2>服务人次</h2></div><div class="panel-body" id="serviceBody"></div></div>
+      </div>
+
+      <!-- 中间：湖北省地图 -->
+      <div class="panel chart-panel map-center">
+        <div class="panel-header"><span class="panel-dot"></span><h2>武汉市物流网络</h2></div>
+        <div class="panel-body"><div class="chart-container" id="chartMap"></div></div>
+      </div>
+
+      <!-- 右列：供应商信息 + 商品细化 -->
+      <div class="side-col side-right">
+        <div class="panel info-panel"><div class="panel-header"><span class="panel-dot" style="background:#ffd740;box-shadow:0 0 8px #ffd740;"></span><h2>供应商信息</h2></div><div class="panel-body" id="supplierBody"></div></div>
+        <div class="panel info-panel"><div class="panel-header"><span class="panel-dot" style="background:#ff9100;box-shadow:0 0 8px #ff9100;"></span><h2>商品细化分类</h2></div><div class="panel-body" id="productBody"></div></div>
+      </div>
+
+      <!-- 底行 -->
+      <div class="bottom-row">
+        <div class="panel info-panel"><div class="panel-header"><span class="panel-dot" style="background:#ff9100;box-shadow:0 0 8px #ff9100;"></span><h2>供应链概况</h2></div><div class="panel-body" id="supplyBody"></div></div>
+        <div class="panel chart-panel charts-stack">
+          <div class="chart-half"><div class="panel-header"><span class="panel-dot"></span><h2>销售/订单趋势（近30天）</h2></div><div class="panel-body"><div class="chart-container" id="chartTrend"></div></div></div>
+          <div class="chart-half"><div class="panel-header"><span class="panel-dot" style="background:#ff4081;box-shadow:0 0 8px #ff4081;"></span><h2>渠道来源占比</h2></div><div class="panel-body"><div class="chart-container" id="chartPie"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://gitee.com/hyy_888/dashboardpage/raw/master/js/data.js"></script>
+  <script src="https://gitee.com/hyy_888/dashboardpage/raw/master/js/charts.js"></script>
+  <script src="https://gitee.com/hyy_888/dashboardpage/raw/master/js/main.js"></script>
+</body>
+</html>
