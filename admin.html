@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><title>后台配置 - 好来客食品集团大屏</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Microsoft YaHei',sans-serif;background:#0a0e24;color:#e0e8ff;min-height:100vh}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(10,18,50,0.95);border-bottom:1px solid rgba(0,210,255,0.2);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(12px)}
+.topbar h1{font-size:18px;background:linear-gradient(90deg,#00d2ff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar .btns{display:flex;gap:8px}
+.btn{padding:8px 16px;border-radius:4px;border:none;cursor:pointer;font-size:12px;font-weight:600;transition:all 0.2s}
+.btn:hover{opacity:0.85}
+.btn-save{background:linear-gradient(135deg,#00d2ff,#0088cc);color:#fff;box-shadow:0 2px 12px rgba(0,210,255,0.25)}
+.btn-outline{background:transparent;color:#e0e8ff;border:1px solid rgba(255,255,255,0.2)}
+.btn-green{background:rgba(0,230,118,0.12);color:#00e676;border:1px solid rgba(0,230,118,0.25)}
+.btn-sm{padding:4px 10px;font-size:11px;border-radius:3px;cursor:pointer;border:none;font-weight:600;transition:all 0.15s}
+.btn-add{background:rgba(0,210,255,0.12);color:#00d2ff;border:1px solid rgba(0,210,255,0.25)}
+.btn-del{background:rgba(255,64,129,0.12);color:#ff4081;border:1px solid rgba(255,64,129,0.25)}
+.btn-add:hover{background:rgba(0,210,255,0.22)}
+.btn-del:hover{background:rgba(255,64,129,0.22)}
+.layout{display:flex;max-width:1300px;margin:0 auto;min-height:calc(100vh - 56px)}
+.sidebar{width:190px;flex-shrink:0;background:rgba(10,18,50,0.5);border-right:1px solid rgba(255,255,255,0.05);padding:12px 0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+.sidebar .nav-item{display:block;padding:9px 18px;font-size:11px;color:#8899cc;cursor:pointer;border-left:2px solid transparent;transition:all 0.2s}
+.sidebar .nav-item:hover{color:#e0e8ff;background:rgba(255,255,255,0.03)}
+.sidebar .nav-item.active{color:#00d2ff;border-left-color:#00d2ff;background:rgba(0,210,255,0.06)}
+.content{flex:1;padding:18px 20px;min-width:0}
+.sec{margin-bottom:24px}
+.sec-title{font-size:14px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.sec-title .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sec-desc{font-size:10px;color:#6678a0;margin-bottom:10px}
+.sec-actions{margin-bottom:8px}
+/* 卡片 */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.card{background:rgba(10,20,60,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:10px 12px}
+.card label{display:block;font-size:10px;color:#6678a0;margin-bottom:4px;letter-spacing:1px}
+.card input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:7px 9px;color:#fff;font-size:12px;font-family:Consolas,monospace;outline:none}
+.card input:focus{border-color:#00d2ff;box-shadow:0 0 0 2px rgba(0,210,255,0.1)}
+/* 表格 */
+.tbl-wrap{border:1px solid rgba(255,255,255,0.06);border-radius:6px;overflow:hidden}
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl thead th{text-align:left;padding:7px 8px;font-size:10px;font-weight:600;color:#6678a0;background:rgba(0,0,0,0.25);border-bottom:1px solid rgba(255,255,255,0.06)}
+.tbl td{padding:4px 6px;border-bottom:1px solid rgba(255,255,255,0.02)}
+.tbl tr:hover td{background:rgba(0,210,255,0.03)}
+.tbl input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:3px;padding:5px 7px;color:#fff;font-size:11px;font-family:Consolas,monospace;outline:none}
+.tbl input:focus{border-color:#00d2ff}
+.tbl .idx{width:28px;color:#445566;font-size:10px;text-align:center}
+.tbl .act{width:36px;text-align:center}
+.tbl .narrow{width:90px}
+/* Toast */
+.toast{position:fixed;top:20px;right:20px;background:#00e676;color:#070b24;padding:14px 22px;border-radius:8px;font-weight:700;font-size:13px;z-index:999;display:none;box-shadow:0 4px 24px rgba(0,230,118,0.3)}
+.toast.show{display:block}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <h1>⚙ 好来客食品集团湖北总部 — 数据配置</h1>
+  <div class="btns">
+    <button class="btn btn-green" onclick="window.open('index.html')">👁 查看大屏</button>
+    <button class="btn btn-outline" id="btnReset">↺ 恢复默认</button>
+    <button class="btn btn-save" id="btnSave">💾 保存全部配置</button>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+    <a class="nav-item active" data-target="sec-kpi">📊 KPI 指标</a>
+    <a class="nav-item" data-target="sec-trace">🔬 溯源检测</a>
+    <a class="nav-item" data-target="sec-supplier">🏭 供应商信息</a>
+    <a class="nav-item" data-target="sec-product">📦 商品细化分类</a>
+    <a class="nav-item" data-target="sec-service">👥 服务人次</a>
+    <a class="nav-item" data-target="sec-vehicle">🚛 车辆轨迹</a>
+    <a class="nav-item" data-target="sec-supply">🚚 供应链概况</a>
+    <a class="nav-item" data-target="sec-chart">📈 趋势图 & 饼图</a>
+    <a class="nav-item" data-target="sec-hubs">📍 物流节点</a>
+  </nav>
+
+  <main class="content">
+    <!-- KPI: cards -->
+    <div class="sec" id="sec-kpi"><div class="sec-title"><span class="dot" style="background:#00d2ff;box-shadow:0 0 8px #00d2ff"></span>📊 KPI 指标</div><div class="sec-desc">顶部5个核心指标卡片</div><div class="card-grid" id="f_kpi"></div></div>
+
+    <!-- 溯源检测: cards + table -->
+    <div class="sec" id="sec-trace"><div class="sec-title"><span class="dot" style="background:#00e676;box-shadow:0 0 8px #00e676"></span>🔬 溯源检测数据</div><div class="sec-desc">检测指标列表（可增删）</div><div class="sec-actions"><button class="btn-sm btn-add" onclick="addRow('trace_tbl','trace')">＋ 新增指标</button></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th class="idx">#</th><th>指标名称</th><th class="narrow">数值(%)</th><th class="narrow">颜色标识</th><th class="act"></th></tr></thead><tbody id="trace_tbl"></tbody></table></div><div class="card-grid" style="margin-top:10px" id="f_trace_extra"></div></div>
+
+    <!-- 供应商: table -->
+    <div class="sec" id="sec-supplier"><div class="sec-title"><span class="dot" style="background:#ffd740;box-shadow:0 0 8px #ffd740"></span>🏭 供应商信息</div><div class="sec-desc">供应商列表（可增删）</div><div class="sec-actions"><button class="btn-sm btn-add" onclick="addRow('supplier_tbl','supplier')">＋ 新增供应商</button></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th class="idx">#</th><th>供应商名称</th><th class="narrow">品类</th><th class="narrow">评级</th><th class="act"></th></tr></thead><tbody id="supplier_tbl"></tbody></table></div></div>
+
+    <!-- 商品细化: table -->
+    <div class="sec" id="sec-product"><div class="sec-title"><span class="dot" style="background:#ff9100;box-shadow:0 0 8px #ff9100"></span>📦 商品细化分类</div><div class="sec-desc">商品列表（可增删）</div><div class="sec-actions"><button class="btn-sm btn-add" onclick="addRow('product_tbl','product')">＋ 新增商品</button></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th class="idx">#</th><th>商品名称</th><th class="narrow">大类</th><th class="narrow">销售额(万元)</th><th class="act"></th></tr></thead><tbody id="product_tbl"></tbody></table></div></div>
+
+    <!-- 服务人次: cards -->
+    <div class="sec" id="sec-service"><div class="sec-title"><span class="dot" style="background:#a78bfa;box-shadow:0 0 8px #a78bfa"></span>👥 服务人次</div><div class="sec-desc">服务人次面板数据</div><div class="card-grid" id="f_service"></div></div>
+
+    <!-- 车辆轨迹: table -->
+    <div class="sec" id="sec-vehicle"><div class="sec-title"><span class="dot" style="background:#00e676;box-shadow:0 0 8px #00e676"></span>🚛 车辆轨迹信息</div><div class="sec-desc">车辆列表（可增删）</div><div class="sec-actions"><button class="btn-sm btn-add" onclick="addRow('vehicle_tbl','vehicle')">＋ 新增车辆</button></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th class="idx">#</th><th>车牌号</th><th>司机</th><th class="narrow">起点</th><th class="narrow">终点</th><th class="act"></th></tr></thead><tbody id="vehicle_tbl"></tbody></table></div></div>
+
+    <!-- 供应链: cards -->
+    <div class="sec" id="sec-supply"><div class="sec-title"><span class="dot" style="background:#ff9100;box-shadow:0 0 8px #ff9100"></span>🚚 供应链概况</div><div class="sec-desc">供应链面板8项指标</div><div class="card-grid" id="f_supply"></div></div>
+
+    <!-- 图表标签: table -->
+    <div class="sec" id="sec-chart"><div class="sec-title"><span class="dot" style="background:#00d2ff;box-shadow:0 0 8px #00d2ff"></span>📈 趋势图 & 饼图标签</div><div class="sec-desc">品类和渠道名称（可增删）</div><div class="sec-actions"><button class="btn-sm btn-add" onclick="addRow('cat_tbl','cat')">＋ 新增品类</button></div><div class="tbl-wrap" style="margin-bottom:8px"><table class="tbl"><thead><tr><th class="idx">#</th><th>柱状图品类名称</th><th class="act"></th></tr></thead><tbody id="cat_tbl"></tbody></table></div><div class="sec-actions"><button class="btn-sm btn-add" onclick="addRow('chn_tbl','chn')">＋ 新增渠道</button></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th class="idx">#</th><th>饼图渠道名称</th><th class="act"></th></tr></thead><tbody id="chn_tbl"></tbody></table></div></div>
+
+    <!-- 物流节点: table -->
+    <div class="sec" id="sec-hubs"><div class="sec-title"><span class="dot" style="background:#ff4081;box-shadow:0 0 8px #ff4081"></span>📍 物流节点</div><div class="sec-desc">地图物流节点（可增删，经纬度自动分配）</div><div class="sec-actions"><button class="btn-sm btn-add" onclick="addRow('hub_tbl','hub')">＋ 新增节点</button></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th class="idx">#</th><th>节点名称</th><th class="narrow">类型</th><th class="act"></th></tr></thead><tbody id="hub_tbl"></tbody></table></div></div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+/* ===== 数据加载 ===== */
+function loadCfg(){try{return JSON.parse(localStorage.getItem('dashboard_config'))||{};}catch(e){return{};}}
+function saveCfg(cfg){localStorage.setItem('dashboard_config',JSON.stringify(cfg));}
+function arrCfg(key,fallback){var c=loadCfg();return(c[key]&&Array.isArray(c[key])&&c[key].length>0)?c[key]:fallback;}
+
+var D = {
+  suppliers:[
+    {name:'武汉中粮肉食',cat:'肉禽蛋品',rating:'A'},{name:'襄阳正大食品',cat:'肉禽蛋品',rating:'A'},{name:'洪湖水产养殖',cat:'冷冻水产',rating:'B'},{name:'荆门粮油集团',cat:'粮油调味',rating:'A'},{name:'恩施高山蔬菜',cat:'生鲜果蔬',rating:'B'},{name:'宜昌柑橘合作社',cat:'生鲜果蔬',rating:'A'},{name:'武汉光明乳业',cat:'乳制品',rating:'A'},{name:'黄石调味品厂',cat:'粮油调味',rating:'B'},{name:'孝感米酒食品',cat:'粮油调味',rating:'A'},{name:'咸宁烘焙原料',cat:'烘焙原料',rating:'B'}
+  ],
+  products:[
+    {name:'冷冻禽肉',cat:'冷冻食品',val:85000},{name:'冷冻水产',cat:'冷冻食品',val:72000},{name:'速冻面点',cat:'冷冻食品',val:58000},{name:'大米杂粮',cat:'粮油调味',val:110000},{name:'食用油',cat:'粮油调味',val:95000},{name:'调味酱料',cat:'粮油调味',val:52000},{name:'膨化零食',cat:'休闲零食',val:45000},{name:'坚果炒货',cat:'休闲零食',val:38000},{name:'液态奶',cat:'乳制品',val:82000},{name:'酸奶',cat:'乳制品',val:62000},{name:'叶菜类',cat:'生鲜果蔬',val:68000},{name:'水果',cat:'生鲜果蔬',val:55000}
+  ],
+  vehicles:[
+    {plate:'鄂A·LK8821',driver:'张建国',from:'江汉区',to:'洪山区'},{plate:'鄂A·LK6625',driver:'李卫东',from:'武昌区',to:'东西湖区'},{plate:'鄂A·LK5318',driver:'王志强',from:'江岸区',to:'江夏区'},{plate:'鄂A·LK3902',driver:'赵明辉',from:'汉阳区',to:'江汉区'},{plate:'鄂A·LK2076',driver:'陈永发',from:'硚口区',to:'黄陂区'},{plate:'鄂A·LK1533',driver:'刘大伟',from:'青山区',to:'蔡甸区'},{plate:'鄂A·LK0891',driver:'周华军',from:'洪山区',to:'新洲区'},{plate:'鄂A·LK9720',driver:'孙志刚',from:'江夏区',to:'武昌区'}
+  ],
+  hubs:[
+    {name:'总部',type:'hq'},{name:'江岸仓',type:'center'},{name:'武昌仓',type:'center'},{name:'洪山仓',type:'center'},{name:'东西湖仓',type:'warehouse'},{name:'汉阳仓',type:'warehouse'},{name:'江夏仓',type:'warehouse'},{name:'黄陂仓',type:'warehouse'},{name:'蔡甸仓',type:'warehouse'},{name:'青山仓',type:'warehouse'},{name:'新洲仓',type:'warehouse'},{name:'硚口仓',type:'warehouse'}
+  ],
+  trace_items:[
+    {label:'检测合格率',val:99.7,color:'green'},{label:'冷链达标率',val:98.8,color:'cyan'},{label:'农残检测通过率',val:99.9,color:'green'},{label:'批次追溯覆盖率',val:99.4,color:'purple'},{label:'供应商审核通过',val:98.2,color:'orange'}
+  ],
+  chart_cats:['冷冻食品','粮油调味','休闲零食','乳制品','生鲜果蔬','烘焙原料','肉禽蛋品','酒水饮料'],
+  chart_chns:['商超卖场','餐饮渠道','电商平台','便利店','团购渠道','经销商']
+};
+
+function gv(key,fallback){var c=loadCfg();return(c[key]!==undefined&&c[key]!==null)?c[key]:fallback;}
+
+/* ===== 渲染辅助 ===== */
+function card(label,key,fallback){return'<div class="card"><label>'+label+'</label><input id="cf_'+key+'" value="'+String(gv(key,fallback)).replace(/"/g,'&quot;')+'"></div>';}
+function tinp(value){return'<input value="'+String(value||'').replace(/"/g,'&quot;')+'">';}
+function delBtn(tblId){return'<button class="btn-sm btn-del" onclick="delRow(this,\''+tblId+'\')">×</button>';}
+
+/* ===== 表格渲染 ===== */
+function renderTbl(tblId, data, cols, keys, cfgKey, defaultData){
+  var arr = arrCfg(cfgKey, defaultData);
+  var h='';
+  arr.forEach(function(row,i){
+    h+='<tr>';
+    h+='<td class="idx">'+(i+1)+'</td>';
+    cols.forEach(function(c,j){
+      h+='<td class="'+(c.cls||'')+'">'+tinp(row[keys[j]])+'</td>';
+    });
+    h+='<td class="act">'+delBtn(tblId)+'</td>';
+    h+='</tr>';
+  });
+  document.getElementById(tblId).innerHTML=h||'<tr><td colspan="'+(cols.length+2)+'" style="text-align:center;color:#556688;padding:14px;">暂无数据，点击「＋ 新增」添加</td></tr>';
+}
+
+/* ===== 卡片渲染 ===== */
+function renderCards(){
+  var h='';h+=card('覆盖城市','kpi_cities',17);h+=card('订单总数','kpi_orders',12580);h+=card('累计服务人次','kpi_service',3528000);h+=card('准时交付率 (%)','kpi_rate',97.5);h+=card('溯源合格率 (%)','kpi_trace',99.80);
+  document.getElementById('f_kpi').innerHTML=h;
+  h='';h+=card('每日检测批次','tr_tests',85);h+=card('批次号前缀','tr_prefix','WH');
+  document.getElementById('f_trace_extra').innerHTML=h;
+  h='';h+=card('累计服务人次','svc_total',3528000);h+=card('今日新增','svc_today',4580);h+=card('本月新增','svc_month',98600);
+  document.getElementById('f_service').innerHTML=h;
+  h='';h+=card('供应商总数','sp_total',156);h+=card('活跃供应商','sp_active',142);h+=card('库存周转(天)','sp_turn',5.8);h+=card('采购完成率(%)','sp_proc',95.2);
+  h+=card('在途车辆','sp_veh',186);h+=card('今日发货量','sp_ship',480);h+=card('仓库使用率(%)','sp_wh',76.5);h+=card('配送时效(h)','sp_del',8.5);
+  document.getElementById('f_supply').innerHTML=h;
+}
+
+/* ===== 新增行 ===== */
+var NEW_DEFAULTS = {
+  trace: {label:'新指标',val:95,color:'cyan'},
+  supplier: {name:'新供应商',cat:'未分类',rating:'B'},
+  product: {name:'新商品',cat:'未分类',val:10000},
+  vehicle: {plate:'鄂A·新车辆',driver:'司机',from:'武汉',to:'武汉'},
+  hub: {name:'新节点',type:'warehouse'},
+  cat: {name:'新品类'},
+  chn: {name:'新渠道'}
+};
+
+function addRow(tblId, type){
+  var arr = arrCfg(getCfgKey(tblId), []);
+  var def = NEW_DEFAULTS[type] || {};
+  arr.push(def);
+  // 更新config
+  var cfg = loadCfg();
+  cfg[getCfgKey(tblId)] = arr;
+  saveCfg(cfg);
+  // 重渲染
+  refreshAll();
+}
+
+function delRow(btn, tblId){
+  var row = btn.closest('tr');
+  var idx = Array.prototype.indexOf.call(row.parentNode.children, row);
+  var arr = arrCfg(getCfgKey(tblId), []);
+  if(idx>=0 && idx<arr.length) arr.splice(idx,1);
+  var cfg = loadCfg();
+  cfg[getCfgKey(tblId)] = arr;
+  saveCfg(cfg);
+  refreshAll();
+}
+
+function getCfgKey(tblId){
+  var map = {
+    trace_tbl:'trace_items', supplier_tbl:'suppliers', product_tbl:'products',
+    vehicle_tbl:'vehicles', hub_tbl:'hubs', cat_tbl:'chart_cats', chn_tbl:'chart_chns'
+  };
+  return map[tblId]||tblId;
+}
+
+function refreshAll(){
+  renderTbl('trace_tbl',null,[{cls:'wide'},{cls:'narrow'},{cls:'narrow'}],['label','val','color'],'trace_items',D.trace_items);
+  renderTbl('supplier_tbl',null,[{cls:'wide'},{cls:'narrow'},{cls:'narrow'}],['name','cat','rating'],'suppliers',D.suppliers);
+  renderTbl('product_tbl',null,[{cls:'wide'},{cls:'narrow'},{cls:'narrow'}],['name','cat','val'],'products',D.products);
+  renderTbl('vehicle_tbl',null,[{cls:''},{cls:''},{cls:'narrow'},{cls:'narrow'}],['plate','driver','from','to'],'vehicles',D.vehicles);
+  renderTbl('hub_tbl',null,[{cls:'wide'},{cls:'narrow'}],['name','type'],'hubs',D.hubs);
+  // 简单字符串表格
+  renderStrTbl('cat_tbl','chart_cats',D.chart_cats);
+  renderStrTbl('chn_tbl','chart_chns',D.chart_chns);
+  renderCards();
+}
+
+function renderStrTbl(tblId, cfgKey, defaultData){
+  var arr = arrCfg(cfgKey, defaultData);
+  var h='';
+  arr.forEach(function(v,i){
+    h+='<tr><td class="idx">'+(i+1)+'</td><td>'+tinp(v)+'</td><td class="act">'+delBtn(tblId)+'</td></tr>';
+  });
+  document.getElementById(tblId).innerHTML=h||'<tr><td colspan="3" style="text-align:center;color:#556688;padding:14px;">暂无数据</td></tr>';
+}
+
+/* ===== 保存 ===== */
+function saveAll(){
+  var cfg = loadCfg();
+
+  // 简单字段（卡片）
+  var fields = ['kpi_cities','kpi_orders','kpi_service','kpi_rate','kpi_trace','tr_tests','tr_prefix','svc_total','svc_today','svc_month','sp_total','sp_active','sp_turn','sp_proc','sp_veh','sp_ship','sp_wh','sp_del'];
+  fields.forEach(function(k){
+    var el = document.getElementById('cf_'+k);
+    if(el){var v=el.value.trim();var n=Number(v);cfg[k]=(!isNaN(n)&&isFinite(n)&&v!=='')?n:v;}
+  });
+
+  // 数组表格
+  function saveTbl(tblId, cfgKey, keys){
+    var rows = document.getElementById(tblId).querySelectorAll('tbody tr');
+    var arr = [];
+    rows.forEach(function(row){
+      var inputs = row.querySelectorAll('input');
+      if(inputs.length === keys.length){
+        var obj = {};
+        keys.forEach(function(k,i){ var v=inputs[i].value.trim();var n=Number(v);obj[k]=(!isNaN(n)&&isFinite(n)&&v!=='')?n:v; });
+        arr.push(obj);
+      }
+    });
+    cfg[cfgKey] = arr;
+  }
+
+  function saveStrTbl(tblId, cfgKey){
+    var rows = document.getElementById(tblId).querySelectorAll('tbody tr');
+    var arr = [];
+    rows.forEach(function(row){
+      var inp = row.querySelector('input');
+      if(inp && inp.value.trim()) arr.push(inp.value.trim());
+    });
+    cfg[cfgKey] = arr;
+  }
+
+  saveTbl('trace_tbl','trace_items',['label','val','color']);
+  saveTbl('supplier_tbl','suppliers',['name','cat','rating']);
+  saveTbl('product_tbl','products',['name','cat','val']);
+  saveTbl('vehicle_tbl','vehicles',['plate','driver','from','to']);
+  saveTbl('hub_tbl','hubs',['name','type']);
+  saveStrTbl('cat_tbl','chart_cats');
+  saveStrTbl('chn_tbl','chart_chns');
+
+  saveCfg(cfg);
+  var total = Object.keys(cfg).length;
+  var t = document.getElementById('toast');
+  t.textContent = '✅ 已保存 '+total+' 个配置项，刷新大屏即可生效';
+  t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},3000);
+}
+
+function resetAll(){
+  if(confirm('确认恢复全部默认配置？此操作不可撤销。')){localStorage.removeItem('dashboard_config');location.reload();}
+}
+
+/* ===== 侧栏导航 ===== */
+document.querySelectorAll('.nav-item').forEach(function(el){
+  el.addEventListener('click',function(e){
+    e.preventDefault();
+    document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+    el.classList.add('active');
+    var t=document.getElementById(el.getAttribute('data-target'));
+    if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+window.addEventListener('scroll',function(){
+  var cur='';
+  document.querySelectorAll('.sec').forEach(function(s){if(window.scrollY>=s.offsetTop-100)cur=s.id;});
+  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.toggle('active',n.getAttribute('data-target')===cur);});
+});
+
+document.getElementById('btnSave').addEventListener('click',saveAll);
+document.getElementById('btnReset').addEventListener('click',resetAll);
+
+refreshAll();
+})();
+</script>
+</body>
+</html>
