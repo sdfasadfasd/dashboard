@@ -175,6 +175,8 @@
 
   /* ================ 刷新所有面板 ================ */
   function refreshInfoPanels() {
+    renderTraceability();
+    renderVehicle();
     renderSupplier();
     renderProductDetail();
     renderSupplyChain();
