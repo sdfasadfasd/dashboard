@@ -46,21 +46,20 @@
 
   /* ================ KPI ================ */
   var kpiIds = {
-    cities: { val: 'kpiCities', trend: 'kpiCitiesTrend' },
-    orders: { val: 'kpiOrders', trend: 'kpiOrdersTrend' },
-    rate:   { val: 'kpiRate',   trend: 'kpiRateTrend'   },
-    trace:  { val: 'kpiTrace',  trend: 'kpiTraceTrend'  },
+    cities: { val: 'kpiCities' },
+    orders: { val: 'kpiOrders' },
+    rate:   { val: 'kpiRate'   },
+    trace:  { val: 'kpiTrace'  },
   };
 
   function updateKPI(data) {
     Object.keys(kpiIds).forEach(function(key) {
-      var ids = kpiIds[key], valEl = document.getElementById(ids.val), trendEl = document.getElementById(ids.trend);
+      var ids = kpiIds[key], valEl = document.getElementById(ids.val);
       if (!valEl) return;
       var val = data[key], newText;
       if (key === 'rate' || key === 'trace') { newText = (key==='trace') ? DataStore.fmtPct2(val) : DataStore.fmtPct1(val); }
       else { newText = DataStore.fmtNum(val); }
       valEl.textContent = newText;
-      if (trendEl && data.trends[key]) { var t = data.trends[key]; trendEl.textContent = (t.dir==='up'?'↑ ':'↓ ') + t.val + '%'; trendEl.className = 'kpi-trend ' + t.dir; }
     });
   }
 
@@ -230,8 +229,9 @@
     initCharts(); initMap();
     updateClock(); setInterval(updateClock, 1000);
 
+    // KPI 固定不刷新
     function scheduleRefresh() {
-      setTimeout(function(){ updateKPI(DataStore.refreshKPI()); refreshInfoPanels(); scheduleRefresh(); }, 3000 + Math.random()*2000);
+      setTimeout(function(){ refreshInfoPanels(); scheduleRefresh(); }, 5000 + Math.random()*3000);
     }
     scheduleRefresh();
 
