@@ -75,8 +75,7 @@
     body.innerHTML = d.items.map(function(it){
       return '<div class="progress-item"><div class="progress-head"><span class="label">'+it.label+'</span><span class="val">'+it.val.toFixed(2)+'%</span></div><div class="progress-bar"><div class="progress-fill '+(colorMap[it.color]||'')+'" style="width:'+it.val+'%"></div></div></div>';
     }).join('') +
-      '<div style="margin-top:2px;display:flex;gap:5px;"><div class="stat-item" style="flex:1;"><div class="stat-num">'+d.todayTests+'</div><div class="stat-label">今日检测</div></div><div class="stat-item" style="flex:1;"><div class="stat-num" style="color:'+(d.abnormalCount>0?'#ff4081':'#00e676')+'">'+d.abnormalCount+'</div><div class="stat-label">异常批次</div></div></div>' +
-      '<div class="batch-tag"><span class="dot-ok"></span><span class="batch-id">'+d.latestBatch+'</span><span style="color:#00e676;margin-left:auto;font-size:9px;">✓ '+d.batchStatus+'</span></div>';
+      '<div class="batch-tag" style="margin-top:4px;"><span class="dot-ok"></span><span class="batch-id">'+d.latestBatch+'</span><span style="color:#00e676;margin-left:auto;font-size:9px;">✓ '+d.batchStatus+'</span></div>';
   }
 
   /* ================ 商品细化分类面板 ================ */
