@@ -74,8 +74,7 @@
     var colorMap = { green:'green', cyan:'', purple:'purple', orange:'orange' };
     body.innerHTML = d.items.map(function(it){
       return '<div class="progress-item"><div class="progress-head"><span class="label">'+it.label+'</span><span class="val">'+it.val.toFixed(2)+'%</span></div><div class="progress-bar"><div class="progress-fill '+(colorMap[it.color]||'')+'" style="width:'+it.val+'%"></div></div></div>';
-    }).join('') +
-      '<div class="batch-tag" style="margin-top:4px;"><span class="dot-ok"></span><span class="batch-id">'+d.latestBatch+'</span><span style="color:#00e676;margin-left:auto;font-size:9px;">✓ '+d.batchStatus+'</span></div>';
+    }).join('');
   }
 
   /* ================ 商品细化分类面板 ================ */
