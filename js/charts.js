@@ -136,27 +136,19 @@ const Charts = (() => {
       };
     });
 
-    // 小车图标 SVG path
-    var carIcon = 'path://M17.5,5.5 L19,8 L19,11.5 L21,11.5 L21,15 L19,15 L19,14 L5,14 L5,15 L3,15 L3,11.5 L5,11.5 L5,8 L6.5,5.5 Z M7,12.5 A1.5,1.5 0 1,0 7,9.5 A1.5,1.5 0 1,0 7,12.5 M17,12.5 A1.5,1.5 0 1,0 17,9.5 A1.5,1.5 0 1,0 17,12.5';
+    // 厢式小货车 SVG path
+    var truckIcon = 'path://M3,6 L5,6 L5,3 L14,3 L16,3 L16,6 L18,6 L20,9 L21,9 L21,12 L19,12 L19,13 L4,13 L4,12 L3,12 L3,9 Z M6,10 A1.2,1.2 0 1,0 6,7.6 A1.2,1.2 0 1,0 6,10 M16,10 A1.2,1.2 0 1,0 16,7.6 A1.2,1.2 0 1,0 16,10 M6,4 L6,6 L16,6 L16,4 Z';
 
     // 车辆位置标记
     const vehicleScatter = (vehicles || []).map(function(v) {
-      var angle = Math.atan2(v.to ? 0.5 : 0, v.from ? 1 : 0) * 180 / Math.PI;
       return {
         name: v.plate + ' ' + v.from + '→' + v.to,
         value: [v.lng, v.lat],
-        symbol: carIcon,
-        symbolSize: 20,
+        symbol: truckIcon,
+        symbolSize: 22,
         symbolRotate: v.status === '返程' ? 180 : 0,
         itemStyle: { color: v.status === '在途' ? '#00d2ff' : '#ffd740' },
-        label: {
-          show: true,
-          formatter: v.plate.replace('鄂A·',''),
-          position: 'top',
-          color: '#fff',
-          fontSize: 7,
-          offset: [0, -12],
-        },
+        label: { show: false },
       };
     });
 
