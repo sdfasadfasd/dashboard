@@ -17,13 +17,12 @@ const DataStore = (() => {
     return {
       cities:  cfg('kpi_cities', 17),
       orders:  cfg('kpi_orders', 12580),
-      service: cfg('kpi_service', 3528000),
       rate:    cfg('kpi_rate', 97.5),
       trace:   cfg('kpi_trace', 99.80),
     };
   }
   var kpi = initKPI();
-  var kpiTrends = { cities:{dir:'up',val:5.9}, orders:{dir:'up',val:4.2}, service:{dir:'up',val:10.5}, rate:{dir:'up',val:0.4}, trace:{dir:'up',val:0.2} };
+  var kpiTrends = { cities:{dir:'up',val:5.9}, orders:{dir:'up',val:4.2}, rate:{dir:'up',val:0.4}, trace:{dir:'up',val:0.2} };
 
   /* ================ 物流节点 ================ */
   var HUB_LNGLAT = [ [114.3054,30.5931],[114.3090,30.6001],[114.3162,30.5435],[114.3438,30.5050],[114.1370,30.6200],[114.2180,30.5475],[114.3210,30.3510],[114.3750,30.8810],[114.0290,30.5820],[114.3940,30.6300],[114.8010,30.8500],[114.2650,30.5750] ];
@@ -155,13 +154,13 @@ const DataStore = (() => {
   function fmtPct2(n) { return n.toFixed(2)+'%'; }
 
   /* ================ 公开接口 ================ */
-  function getKPI() { return {cities:kpi.cities,orders:kpi.orders,service:kpi.service,rate:kpi.rate,trace:kpi.trace,trends:{...kpiTrends}}; }
+  function getKPI() { return {cities:kpi.cities,orders:kpi.orders,rate:kpi.rate,trace:kpi.trace,trends:{...kpiTrends}}; }
   function refreshKPI() {
     kpi = initKPI();
-    kpi.cities += (Math.random()>0.85?1:0); kpi.orders = fluctuate(kpi.orders,1.2); kpi.service = fluctuate(kpi.service,0.6);
+    kpi.cities += (Math.random()>0.85?1:0); kpi.orders = fluctuate(kpi.orders,1.2);
     kpi.rate = Math.min(99.9,Math.max(95,Math.round((kpi.rate+(Math.random()-0.4)*0.3)*10)/10));
     kpi.trace = Math.min(100,Math.max(98,Math.round((kpi.trace+(Math.random()-0.4)*0.15)*100)/100));
-    ['cities','orders','service','rate','trace'].forEach(function(k){kpiTrends[k].val=Math.round((kpiTrends[k].val+(Math.random()-0.5)*0.4)*10)/10;});
+    ['cities','orders','rate','trace'].forEach(function(k){kpiTrends[k].val=Math.round((kpiTrends[k].val+(Math.random()-0.5)*0.4)*10)/10;});
     return getKPI();
   }
   function getTrendData() {
