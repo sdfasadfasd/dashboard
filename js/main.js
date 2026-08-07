@@ -48,7 +48,6 @@
   var kpiIds = {
     cities: { val: 'kpiCities', trend: 'kpiCitiesTrend' },
     orders: { val: 'kpiOrders', trend: 'kpiOrdersTrend' },
-    service:{ val: 'kpiService',trend: 'kpiServiceTrend'},
     rate:   { val: 'kpiRate',   trend: 'kpiRateTrend'   },
     trace:  { val: 'kpiTrace',  trend: 'kpiTraceTrend'  },
   };
