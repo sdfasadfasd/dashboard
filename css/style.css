@@ -61,9 +61,9 @@ html, body {
 .refresh-btn:active .refresh-icon { transform: rotate(360deg); }
 
 /* ================ KPI 6列 ================ */
-.kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
-.kpi-card { position: relative; display: flex; align-items: center; gap: 10px; padding: 8px 14px; background: var(--bg-panel); border: 1px solid var(--border-glow); border-radius: var(--radius); backdrop-filter: blur(12px); overflow: hidden; transition: all var(--transition-fast); animation: cardSlideUp 0.6s ease-out both; }
-.kpi-card:nth-child(1){animation-delay:0.04s} .kpi-card:nth-child(2){animation-delay:0.10s} .kpi-card:nth-child(3){animation-delay:0.16s} .kpi-card:nth-child(4){animation-delay:0.22s} .kpi-card:nth-child(5){animation-delay:0.28s}
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+.kpi-card { position: relative; display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: var(--bg-panel); border: 1px solid var(--border-glow); border-radius: var(--radius); backdrop-filter: blur(12px); overflow: hidden; transition: all var(--transition-fast); animation: cardSlideUp 0.6s ease-out both; }
+.kpi-card:nth-child(1){animation-delay:0.05s} .kpi-card:nth-child(2){animation-delay:0.14s} .kpi-card:nth-child(3){animation-delay:0.23s} .kpi-card:nth-child(4){animation-delay:0.32s}
 @keyframes cardSlideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
 .kpi-card::before { content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--card-color), transparent); opacity: 0.6; transition: opacity var(--transition-fast); }
 .kpi-card:hover { border-color: rgba(0,210,255,0.5); box-shadow: 0 3px 20px rgba(0,180,255,0.12), inset 0 0 12px rgba(0,180,255,0.04); }
