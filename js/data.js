@@ -151,10 +151,12 @@ const DataStore = (() => {
     return { categories:cats, values:cats.map(function(){return Math.round(40000+Math.random()*180000);}) };
   }
   function getChannelData() {
-    var chns = cfgArr('chart_chns', DEFAULT_CHNS);
-    var raw = chns.map(function(n){return{name:n,value:Math.round(30+Math.random()*300)};});
-    var total = raw.reduce(function(s,it){return s+it.value;},0);
-    return raw.map(function(it){return{name:it.name,value:it.value,percent:((it.value/total)*100).toFixed(1)};});
+    return [
+      {name:'学校',value:68,percent:'68%'},
+      {name:'央国企',value:15,percent:'15%'},
+      {name:'政府机关',value:10,percent:'10%'},
+      {name:'其他',value:7,percent:'7%'},
+    ];
   }
 
   /* ================ 工具 ================ */
