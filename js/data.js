@@ -115,13 +115,13 @@ const DataStore = (() => {
     {plate:'鄂A·LK8815',driver:'马国良',from:'蔡甸区',to:'武昌区'},{plate:'鄂A·LK8816',driver:'朱志远',from:'新洲区',to:'汉阳区'},
     {plate:'鄂A·LK8817',driver:'林海生',from:'东西湖区',to:'东湖高新'}
   ];
+  // 武汉市各区内固定坐标（15个）
+  var FIXED_COORDS = [[114.31,30.60],[114.32,30.55],[114.27,30.57],[114.22,30.54],[114.33,30.52],[114.39,30.63],[114.35,30.48],[114.15,30.62],[114.21,30.34],[114.16,30.56],[114.37,30.38],[114.38,30.85],[114.60,30.78],[114.44,30.50],[114.18,30.48]];
   function getVehicleData() {
     var vehicles = cfgArr('vehicles', DEFAULT_VEHICLES).map(function(v, i) {
-      // 武汉市经纬度范围随机分散: lng 113.9~114.8, lat 30.3~31.0
-      var lng = 113.9 + Math.random() * 0.9;
-      var lat = 30.3 + Math.random() * 0.7;
+      var coord = FIXED_COORDS[i] || [114.3, 30.6];
       var status = (i===3||i===7||i===11) ? '返程' : '在途';
-      return { plate:v.plate, driver:v.driver||'', from:v.from||'', to:v.to||'', status:status, speed:40+Math.floor(Math.random()*20), eta:(15+Math.floor(Math.random()*40))+'min', lng:lng, lat:lat };
+      return { plate:v.plate, driver:v.driver||'', from:v.from||'', to:v.to||'', status:status, speed:40+Math.floor(Math.random()*20), eta:(15+Math.floor(Math.random()*40))+'min', lng:coord[0], lat:coord[1] };
     });
     var active = vehicles.filter(function(v){return v.status==='在途';}).length;
     return { vehicles:vehicles, total:vehicles.length, active:active };
