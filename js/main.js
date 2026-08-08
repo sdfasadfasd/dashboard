@@ -96,8 +96,10 @@
     html += '<div style="font-size:9px;color:#6678a0;margin-bottom:1px;">▎供应商列表</div>';
     html += '<div class="supplier-scroll" style="overflow:hidden;flex:1;position:relative;">';
     html += '<div class="supplier-scroll-inner" style="animation:scrollUp 35s linear infinite;">';
+    // 打乱顺序
+    var list = d.suppliers.slice().sort(function(){return Math.random()-0.5});
     var items = '';
-    d.suppliers.forEach(function(s, i){
+    list.forEach(function(s, i){
       var rColor = s.rating==='A'?'#00e676':'#ffd740';
       items += '<div style="display:flex;align-items:center;gap:6px;padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:9px;">' +
         '<span style="width:5px;height:5px;border-radius:50%;background:'+rColor+';flex-shrink:0;"></span>' +
