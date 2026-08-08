@@ -232,9 +232,11 @@ const Charts = (() => {
         axisLine: { lineStyle: { color: 'rgba(255,255,255,0.08)' } },
         axisTick: { show: false },
         axisLabel: {
-          color: '#8899cc',
-          fontSize: 10,
-          rotate: data.categories.length > 6 ? 20 : 0,
+          color: '#e0e8ff',
+          fontSize: 11,
+          fontWeight: 'bold',
+          rotate: 0,
+          interval: 0,
         },
       },
       yAxis: {
@@ -246,7 +248,7 @@ const Charts = (() => {
       },
       series: [{
         type: 'bar',
-        barWidth: '50%',
+        barWidth: '55%',
         data: data.values.map((v, i) => ({
           value: v,
           itemStyle: {
