@@ -268,59 +268,51 @@ const Charts = (() => {
     return chart;
   }
 
-  /* ================ 饼图（环形） ================ */
+  /* ================ 饼图（环形优化） ================ */
   function renderPie(domId, data) {
     const dom = document.getElementById(domId);
     if (!dom) return null;
 
     const chart = echarts.init(dom);
+    var colorPalette = ['#00d2ff','#a78bfa','#ff9100','#ff4081'];
+    var totalVal = data.reduce(function(s,it){return s+it.value;},0);
     const opt = {
       ...baseOption(),
       legend: {
         orient: 'vertical',
-        right: 8,
+        right: 5,
         top: 'center',
-        textStyle: { color: '#8899cc', fontSize: 11 },
-        itemWidth: 10,
-        itemHeight: 10,
-        itemGap: 12,
+        textStyle: { color: '#8899cc', fontSize: 11, rich:{name:{width:60}} },
+        itemWidth: 8,
+        itemHeight: 8,
+        itemGap: 14,
+        formatter: function(name){ return name; },
       },
       series: [{
         type: 'pie',
-        radius: ['52%', '78%'],
-        center: ['38%', '50%'],
+        radius: ['55%', '82%'],
+        center: ['42%', '50%'],
         avoidLabelOverlap: false,
-        padAngle: 2,
+        padAngle: 3,
         itemStyle: {
-          borderRadius: 6,
+          borderRadius: 8,
           borderColor: 'rgba(7, 11, 36, 1)',
-          borderWidth: 3,
+          borderWidth: 4,
         },
         label: {
-          show: true,
-          position: 'outside',
-          formatter: '{b}\n{d}%',
-          color: '#8899cc',
-          fontSize: 10,
-        },
-        labelLine: {
-          length: 18,
-          length2: 24,
-          lineStyle: { color: 'rgba(255,255,255,0.15)' },
+          show: false,
         },
         emphasis: {
-          label: { fontSize: 14, fontWeight: 'bold' },
-          scaleSize: 8,
-          shadowBlur: 16,
-          shadowColor: 'rgba(0,0,0,0.4)',
+          label: { show: true, fontSize: 18, fontWeight: 'bold', color: '#fff' },
+          scaleSize: 10,
+          shadowBlur: 20,
+          shadowColor: 'rgba(0,0,0,0.5)',
         },
-        data: data.map((it, i) => ({
-          ...it,
-          itemStyle: { color: COLOR_LIST[i % COLOR_LIST.length] },
-        })),
+        data: data.map(function(it, i) {
+          return { name: it.name+' '+it.percent, value: it.value, itemStyle: { color: colorPalette[i % colorPalette.length] } };
+        }),
       }],
     };
-
     chart.setOption(opt);
     return chart;
   }
