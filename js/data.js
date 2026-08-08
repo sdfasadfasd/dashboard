@@ -93,19 +93,12 @@ const DataStore = (() => {
     };
   }
 
-  /* ================ 商品细化饼图 ================ */
+  /* ================ 商品细化饼图（静态） ================ */
   function getProductPieData() {
     return [
-      {name:'蔬果类',value:20.01},
-      {name:'畜类',value:27.62},
-      {name:'冻品类',value:16.07},
-      {name:'粮油类',value:6.81},
-      {name:'水产类',value:4.24},
-      {name:'干货类',value:4.17},
-      {name:'熟食品',value:3.39},
-      {name:'蛋类',value:2.68},
-      {name:'早点类',value:2.29},
-      {name:'其他类',value:12.72},
+      {name:'蔬果类',value:20.01},{name:'畜类',value:27.62},{name:'冻品类',value:16.07},
+      {name:'粮油类',value:6.81},{name:'水产类',value:4.24},{name:'干货类',value:4.17},
+      {name:'熟食品',value:3.39},{name:'蛋类',value:2.68},{name:'早点类',value:2.29},{name:'其他类',value:12.72},
     ];
   }
 
