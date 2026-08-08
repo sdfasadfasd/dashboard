@@ -115,12 +115,13 @@ const DataStore = (() => {
     {plate:'鄂A·LK8815',driver:'马国良',from:'蔡甸区',to:'武昌区'},{plate:'鄂A·LK8816',driver:'朱志远',from:'新洲区',to:'汉阳区'},
     {plate:'鄂A·LK8817',driver:'林海生',from:'东西湖区',to:'东湖高新'}
   ];
-  var VEH_COORDS = [[114.33,30.53],[114.32,30.58],[114.33,30.48],[114.24,30.65],[114.22,30.50],[114.40,30.65],[114.42,30.38],[114.33,30.42],[114.43,30.50],[114.17,30.55],[114.22,30.38],[114.42,30.72],[114.20,30.52],[114.70,30.62],[114.18,30.60]];
   function getVehicleData() {
     var vehicles = cfgArr('vehicles', DEFAULT_VEHICLES).map(function(v, i) {
-      var coord = VEH_COORDS[i] || [114.3+Math.random()*0.5, 30.5+Math.random()*0.3];
-      var status = (i===3||i===7) ? '返程' : '在途';
-      return { plate:v.plate, driver:v.driver||'', from:v.from||'', to:v.to||'', status:status, speed:40+Math.floor(Math.random()*20), eta:(15+Math.floor(Math.random()*40))+'min', lng:coord[0], lat:coord[1] };
+      // 武汉市经纬度范围随机分散: lng 113.9~114.8, lat 30.3~31.0
+      var lng = 113.9 + Math.random() * 0.9;
+      var lat = 30.3 + Math.random() * 0.7;
+      var status = (i===3||i===7||i===11) ? '返程' : '在途';
+      return { plate:v.plate, driver:v.driver||'', from:v.from||'', to:v.to||'', status:status, speed:40+Math.floor(Math.random()*20), eta:(15+Math.floor(Math.random()*40))+'min', lng:lng, lat:lat };
     });
     var active = vehicles.filter(function(v){return v.status==='在途';}).length;
     return { vehicles:vehicles, total:vehicles.length, active:active };
