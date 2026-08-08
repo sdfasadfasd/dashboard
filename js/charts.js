@@ -192,7 +192,7 @@ const Charts = (() => {
             borderWidth: 2,
           },
         },
-        label: { show: true, color: '#8899cc', fontSize: 10 },
+        label: { show: false },
       },
       series: [
         // 静态飞线
