@@ -175,7 +175,7 @@
 
   /* ================ 图表 ================ */
   function initCharts() {
-    chartInstances.push(Charts.renderTrend('chartTrend', DataStore.getTrendData()));
+    chartInstances.push(Charts.renderBar('chartTrend', DataStore.getMonthlySalesData()));
     chartInstances.push(Charts.renderPie('chartPie', DataStore.getChannelData()));
   }
 
