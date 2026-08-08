@@ -152,6 +152,18 @@ const Charts = (() => {
       };
     });
 
+    // 区域节点标记
+    const hubScatter = hubs.map(function(h) {
+      return {
+        name: h.name,
+        value: [h.lng, h.lat],
+        symbol: 'pin',
+        symbolSize: 22,
+        itemStyle: { color: h.type === 'hq' ? '#ff4081' : h.type === 'center' ? '#00d2ff' : '#00e676' },
+        label: { show: true, formatter: '{b}', position: 'right', color: '#e0e8ff', fontSize: 9 },
+      };
+    });
+
     const opt = {
       backgroundColor: 'transparent',
       tooltip: {
@@ -211,6 +223,13 @@ const Charts = (() => {
           coordinateSystem: 'geo',
           data: vehicleScatter,
           zlevel: 2,
+        },
+        // 区域节点
+        {
+          type: 'scatter',
+          coordinateSystem: 'geo',
+          data: hubScatter,
+          zlevel: 3,
         },
       ],
     };
