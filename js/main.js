@@ -101,7 +101,7 @@
     var items = '';
     list.forEach(function(s, i){
       var rColor = s.rating==='A'?'#00e676':'#ffd740';
-      items += '<div style="display:flex;align-items:center;gap:6px;padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:9px;">' +
+      items += '<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:11px;">' +
         '<span style="width:5px;height:5px;border-radius:50%;background:'+rColor+';flex-shrink:0;"></span>' +
         '<span style="color:#fff;flex:1;">'+s.name+'</span>' +
         '<span style="color:'+rColor+';font-weight:600;">'+s.rating+'</span>' +
