@@ -76,9 +76,21 @@ const DataStore = (() => {
     {name:'孝感米酒食品',cat:'粮油调味',rating:'A'},{name:'咸宁烘焙原料',cat:'烘焙原料',rating:'B'}
   ];
   function getSupplierData() {
-    var arr = cfgArr('suppliers', DEFAULT_SUPPLIERS);
-    var aCount = arr.filter(function(s){return s.rating==='A';}).length;
-    return { suppliers: arr.map(function(s){return{name:s.name,cat:s.cat||'',rating:s.rating||'B',status:'正常'};}), total:arr.length, active:arr.length, aCount:aCount };
+    return {
+      suppliers: [
+        {name:'武汉中粮肉食',cat:'肉禽蛋品',rating:'A',status:'正常'},
+        {name:'襄阳正大食品',cat:'肉禽蛋品',rating:'A',status:'正常'},
+        {name:'洪湖水产养殖',cat:'冷冻水产',rating:'B',status:'正常'},
+        {name:'荆门粮油集团',cat:'粮油调味',rating:'A',status:'正常'},
+        {name:'恩施高山蔬菜',cat:'生鲜果蔬',rating:'B',status:'正常'},
+        {name:'宜昌柑橘合作社',cat:'生鲜果蔬',rating:'A',status:'正常'},
+        {name:'武汉光明乳业',cat:'乳制品',rating:'A',status:'正常'},
+        {name:'黄石调味品厂',cat:'粮油调味',rating:'B',status:'正常'},
+        {name:'孝感米酒食品',cat:'粮油调味',rating:'A',status:'正常'},
+        {name:'咸宁烘焙原料',cat:'烘焙原料',rating:'B',status:'正常'},
+      ],
+      total: 675, active: 675, aCount: 68,
+    };
   }
 
   /* ================ 商品细化 ================ */
