@@ -152,18 +152,6 @@ const Charts = (() => {
       };
     });
 
-    // 区域节点标记（只显示总部+中心，不显示绿色仓库）
-    const hubScatter = hubs.filter(function(h) { return h.type !== 'warehouse'; }).map(function(h) {
-      return {
-        name: h.name,
-        value: [h.lng, h.lat],
-        symbol: 'pin',
-        symbolSize: 22,
-        itemStyle: { color: h.type === 'hq' ? '#ff4081' : '#00d2ff' },
-        label: { show: false },
-      };
-    });
-
     const opt = {
       backgroundColor: 'transparent',
       tooltip: {
@@ -223,13 +211,6 @@ const Charts = (() => {
           coordinateSystem: 'geo',
           data: vehicleScatter,
           zlevel: 2,
-        },
-        // 区域节点
-        {
-          type: 'scatter',
-          coordinateSystem: 'geo',
-          data: hubScatter,
-          zlevel: 3,
         },
       ],
     };
