@@ -93,22 +93,20 @@ const DataStore = (() => {
     };
   }
 
-  /* ================ 商品细化 ================ */
-  var DEFAULT_PRODUCTS = [
-    {name:'冷冻禽肉',cat:'冷冻食品',val:85000},{name:'冷冻水产',cat:'冷冻食品',val:72000},{name:'速冻面点',cat:'冷冻食品',val:58000},
-    {name:'大米杂粮',cat:'粮油调味',val:110000},{name:'食用油',cat:'粮油调味',val:95000},{name:'调味酱料',cat:'粮油调味',val:52000},
-    {name:'膨化零食',cat:'休闲零食',val:45000},{name:'坚果炒货',cat:'休闲零食',val:38000},
-    {name:'液态奶',cat:'乳制品',val:82000},{name:'酸奶',cat:'乳制品',val:62000},
-    {name:'叶菜类',cat:'生鲜果蔬',val:68000},{name:'水果',cat:'生鲜果蔬',val:55000}
-  ];
-  function getProductDetailData() {
-    var items = cfgArr('products', DEFAULT_PRODUCTS).map(function(it) {
-      return { name:it.name, cat:it.cat||'', val:Math.round((it.val||10000)+(Math.random()-0.5)*(it.val||10000)*0.08) };
-    });
-    var total = items.reduce(function(s,it){return s+it.val;},0);
-    items.forEach(function(it){ it.pct = ((it.val/total)*100).toFixed(1); });
-    var maxVal = Math.max.apply(null, items.map(function(it){return it.val;}));
-    return { items:items, maxVal:maxVal };
+  /* ================ 商品细化饼图 ================ */
+  function getProductPieData() {
+    return [
+      {name:'蔬果类',value:20.01},
+      {name:'畜类',value:27.62},
+      {name:'冻品类',value:16.07},
+      {name:'粮油类',value:6.81},
+      {name:'水产类',value:4.24},
+      {name:'干货类',value:4.17},
+      {name:'熟食品',value:3.39},
+      {name:'蛋类',value:2.68},
+      {name:'早点类',value:2.29},
+      {name:'其他类',value:12.72},
+    ];
   }
 
   /* ================ 服务人次 ================ */
@@ -196,7 +194,7 @@ const DataStore = (() => {
   return {
     getKPI, refreshKPI, getTrendData, getCategoryData, getChannelData,
     logisticsHubs: getLogisticsHubs, getLogisticsRoutes,
-    getTraceabilityData, getSupplierData, getServiceData, getVehicleData, getSupplyChainData, getProductDetailData,
+    getTraceabilityData, getSupplierData, getServiceData, getVehicleData, getSupplyChainData, getProductPieData,
     fmtNum, fmtPct1, fmtPct2,
   };
 })();
