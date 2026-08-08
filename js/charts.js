@@ -300,13 +300,12 @@ const Charts = (() => {
           borderWidth: 4,
         },
         label: {
-          show: false,
-        },
-        emphasis: {
-          label: { show: true, fontSize: 18, fontWeight: 'bold', color: '#fff' },
-          scaleSize: 10,
-          shadowBlur: 20,
-          shadowColor: 'rgba(0,0,0,0.5)',
+          show: true,
+          position: 'inside',
+          formatter: '{d}%',
+          fontSize: 16,
+          fontWeight: 'bold',
+          color: '#fff',
         },
         data: data.map(function(it, i) {
           return { name: it.name+' '+it.percent, value: it.value, itemStyle: { color: colorPalette[i % colorPalette.length] } };
