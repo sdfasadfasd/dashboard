@@ -198,12 +198,11 @@
       .then(function(geoJSON){
         mapDom.innerHTML = '';
         var vehData = DataStore.getVehicleData();
-        // 飞线 = 车辆路线（从起点区到终点区）
+        // 飞线 = 从起点区到车辆当前位置
         var vehRoutes = vehData.vehicles.map(function(v, i) {
           var hubs = DataStore.logisticsHubs();
-          var fromHub = hubs.find(function(h){return h.name === v.from;}) || {lng:114.3+Math.random()*0.5,lat:30.5+Math.random()*0.3};
-          var toHub = hubs.find(function(h){return h.name === v.to;}) || {lng:114.3+Math.random()*0.5,lat:30.5+Math.random()*0.3};
-          return { from: {name:v.from,lng:fromHub.lng,lat:fromHub.lat}, to: {name:v.to,lng:toHub.lng,lat:toHub.lat}, value:100 };
+          var fromHub = hubs.find(function(h){return h.name === v.from;}) || {lng:114.3,lat:30.6};
+          return { from: {name:v.from,lng:fromHub.lng,lat:fromHub.lat}, to: {name:v.plate,lng:v.lng,lat:v.lat}, value:100 };
         });
         var mapChart = Charts.renderMap('chartMap', geoJSON, DataStore.logisticsHubs(), vehRoutes, vehData.vehicles);
         if(mapChart) chartInstances.push(mapChart);
