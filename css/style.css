@@ -83,7 +83,7 @@ html, body {
    ============================================================ */
 .main-area {
   display: grid;
-  grid-template-columns: 0.75fr 2.6fr 0.75fr;
+  grid-template-columns: 0.9fr 2.2fr 0.9fr;
   grid-template-rows: 1.5fr 1fr;
   gap: 4px;
   min-height: 0;
