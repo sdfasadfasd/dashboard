@@ -113,21 +113,23 @@ const DataStore = (() => {
 
   /* ================ 车辆轨迹 ================ */
   var DEFAULT_VEHICLES = [
-    {plate:'鄂A·LK8801',driver:'张建国',from:'江汉区',to:'洪山区'},{plate:'鄂A·LK8802',driver:'李卫东',from:'武昌区',to:'东西湖区'},
-    {plate:'鄂A·LK8803',driver:'王志强',from:'江岸区',to:'江夏区'},{plate:'鄂A·LK8805',driver:'赵明辉',from:'汉阳区',to:'黄陂区'},
-    {plate:'鄂A·LK8806',driver:'陈永发',from:'硚口区',to:'蔡甸区'},{plate:'鄂A·LK8807',driver:'刘大伟',from:'青山区',to:'新洲区'},
-    {plate:'鄂A·LK8808',driver:'周华军',from:'洪山区',to:'汉南区'},{plate:'鄂A·LK8809',driver:'孙志刚',from:'江夏区',to:'江岸区'},
-    {plate:'鄂A·LK8810',driver:'吴永强',from:'东湖高新',to:'江汉区'},{plate:'鄂A·LK8811',driver:'郑光明',from:'武汉经开',to:'东西湖区'},
-    {plate:'鄂A·LK8812',driver:'黄文斌',from:'汉南区',to:'硚口区'},{plate:'鄂A·LK8813',driver:'杨海峰',from:'黄陂区',to:'青山区'},
-    {plate:'鄂A·LK8815',driver:'马国良',from:'蔡甸区',to:'武昌区'},{plate:'鄂A·LK8816',driver:'朱志远',from:'新洲区',to:'汉阳区'},
-    {plate:'鄂A·LK8817',driver:'林海生',from:'东西湖区',to:'东湖高新'}
+    {plate:'鄂AD51969',driver:'张建国',from:'江汉区',to:'洪山区'},{plate:'鄂AAK1897',driver:'李卫东',from:'武昌区',to:'东西湖区'},
+    {plate:'鄂WMF000',driver:'王志强',from:'江岸区',to:'江夏区'},{plate:'鄂WKY289',driver:'赵明辉',from:'汉阳区',to:'黄陂区'},
+    {plate:'鄂WLG636',driver:'陈永发',from:'硚口区',to:'蔡甸区'},{plate:'鄂AAS9692',driver:'刘大伟',from:'青山区',to:'新洲区'},
+    {plate:'鄂AAJ5773',driver:'周华军',from:'洪山区',to:'汉南区'},{plate:'鄂ABE5089',driver:'孙志刚',from:'江夏区',to:'江岸区'},
+    {plate:'鄂ABA3910',driver:'吴永强',from:'东湖高新',to:'江汉区'},{plate:'鄂AA73510',driver:'郑光明',from:'武汉经开',to:'东西湖区'},
+    {plate:'鄂W37861',driver:'黄文斌',from:'汉南区',to:'硚口区'},{plate:'鄂A2V760',driver:'杨海峰',from:'黄陂区',to:'青山区'},
+    {plate:'鄂WXC234',driver:'马国良',from:'蔡甸区',to:'武昌区'},{plate:'鲁DF378E',driver:'朱志远',from:'新洲区',to:'汉阳区'},
+    {plate:'鄂AB22219',driver:'林海生',from:'东西湖区',to:'东湖高新'},{plate:'鄂A2T67R',driver:'徐国栋',from:'江汉区',to:'武汉经开'},
+    {plate:'鄂W909S7',driver:'冯志强',from:'武昌区',to:'东湖高新'},{plate:'鄂AC52786',driver:'何永康',from:'江岸区',to:'汉南区'},
+    {plate:'皖HD93495',driver:'丁海龙',from:'硚口区',to:'黄陂区'},{plate:'鄂A62T03',driver:'沈卫国',from:'青山区',to:'蔡甸区'}
   ];
-  // 武汉市各区内固定坐标（15个）
-  var FIXED_COORDS = [[114.31,30.60],[114.32,30.55],[114.27,30.57],[114.22,30.54],[114.33,30.52],[114.39,30.63],[114.35,30.48],[114.15,30.62],[114.21,30.34],[114.16,30.56],[114.37,30.38],[114.38,30.85],[114.60,30.78],[114.44,30.50],[114.18,30.48]];
+  // 武汉市各区内固定坐标（20个）
+  var FIXED_COORDS = [[114.31,30.60],[114.32,30.55],[114.27,30.57],[114.22,30.54],[114.33,30.52],[114.39,30.63],[114.35,30.48],[114.15,30.62],[114.21,30.34],[114.16,30.56],[114.37,30.38],[114.38,30.85],[114.60,30.78],[114.44,30.50],[114.18,30.48],[114.25,30.50],[114.40,30.55],[114.30,30.40],[114.20,30.70],[114.35,30.65]];
   function getVehicleData() {
     var vehicles = cfgArr('vehicles', DEFAULT_VEHICLES).map(function(v, i) {
       var coord = FIXED_COORDS[i] || [114.3, 30.6];
-      var status = (i===3||i===7||i===11) ? '返程' : '在途';
+      var status = (i===3||i===7||i===11||i===16||i===18) ? '返程' : '在途';
       return { plate:v.plate, driver:v.driver||'', from:v.from||'', to:v.to||'', status:status, speed:40+Math.floor(Math.random()*20), eta:(15+Math.floor(Math.random()*40))+'min', lng:coord[0], lat:coord[1] };
     });
     var active = vehicles.filter(function(v){return v.status==='在途';}).length;
