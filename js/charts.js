@@ -285,12 +285,12 @@ const Charts = (() => {
       },
       series: [{
         type: 'pie',
-        radius: ['45%', '80%'],
+        radius: ['35%', '60%'],
         center: ['50%', '50%'],
         avoidLabelOverlap: false,
         padAngle: 2,
         itemStyle: {
-          borderRadius: 4,
+          borderRadius: 3,
           borderColor: 'rgba(7, 11, 36, 1)',
           borderWidth: 2,
         },
@@ -298,14 +298,15 @@ const Charts = (() => {
           show: true,
           position: 'outside',
           formatter: '{b} {d}%',
-          color: '#bcc8e8',
-          fontSize: 10,
-          distanceToLabelLine: 4,
+          color: '#e0e8ff',
+          fontSize: 12,
+          fontWeight: 'bold',
+          distanceToLabelLine: 2,
         },
         labelLine: {
-          length: 12,
-          length2: 16,
-          lineStyle: { color: 'rgba(255,255,255,0.12)' },
+          length: 8,
+          length2: 10,
+          lineStyle: { color: 'rgba(255,255,255,0.2)' },
         },
         data: data.map(function(it, i) {
           return { name: it.name, value: it.value, itemStyle: { color: colorPalette[i % colorPalette.length] } };
