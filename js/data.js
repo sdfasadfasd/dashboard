@@ -188,14 +188,15 @@ const DataStore = (() => {
     ['cities','orders','rate','trace'].forEach(function(k){kpiTrends[k].val=Math.round((kpiTrends[k].val+(Math.random()-0.5)*0.4)*10)/10;});
     return getKPI();
   }
-  function getTrendData() {
-    var dates=[],sales=[],orders=[],now=new Date(),s=40000,o=380;
-    for(var i=29;i>=0;i--){var d=new Date(now);d.setDate(d.getDate()-i);dates.push((d.getMonth()+1)+'/'+d.getDate());s+=Math.round((Math.random()-0.35)*2500);o+=Math.round((Math.random()-0.3)*15);sales.push(s);orders.push(o);}
-    return {dates:dates,salesSeries:sales,ordersSeries:orders};
+  function getMonthlySalesData() {
+    return {
+      categories: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+      values: [820,680,950,1100,1280,1450,1380,1520,1680,1850,1720,1960],
+    };
   }
 
   return {
-    getKPI, refreshKPI, getTrendData, getCategoryData, getChannelData,
+    getKPI, refreshKPI, getMonthlySalesData, getCategoryData, getChannelData,
     logisticsHubs: getLogisticsHubs, getLogisticsRoutes,
     getTraceabilityData, getSupplierData, getServiceData, getVehicleData, getSupplyChainData, getProductPieData,
     fmtNum, fmtPct1, fmtPct2,
