@@ -134,12 +134,12 @@ const DataStore = (() => {
   /* ================ 供应链 ================ */
   function getSupplyChainData() {
     return {
-      totalSuppliers: cfg('sp_total',156), activeSuppliers: Math.round(cfg('sp_active',142)+(Math.random()-0.5)*8),
-      inventoryTurnover: (cfg('sp_turn',5.8)+(Math.random()-0.5)*1.2).toFixed(1),
-      procurementRate: (cfg('sp_proc',95.2)+(Math.random()-0.5)*3).toFixed(1),
-      totalVehicles: cfg('sp_veh',186), todayShipments: Math.round(cfg('sp_ship',480)+(Math.random()-0.5)*80),
-      warehouseUsage: (cfg('sp_wh',76.5)+(Math.random()-0.5)*8).toFixed(1),
-      avgDeliveryH: (cfg('sp_del',8.5)+(Math.random()-0.5)*3).toFixed(1),
+      totalSuppliers: 675, activeSuppliers: 532,
+      inventoryTurnover: 5,
+      procurementRate: 99.9,
+      totalVehicles: 95, todayShipments: 442,
+      warehouseUsage: 75,
+      avgDeliveryH: 4.5,
     };
   }
 
