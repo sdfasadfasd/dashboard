@@ -287,7 +287,7 @@ const Charts = (() => {
       },
       series: [{
         type: 'pie',
-        radius: count <= 4 ? ['35%', '65%'] : ['15%', '28%'],
+        radius: count <= 4 ? ['30%', '58%'] : ['28%', '50%'],
         center: count <= 4 ? ['50%', '50%'] : ['55%', '50%'],
         avoidLabelOverlap: false,
         padAngle: 1,
@@ -301,7 +301,7 @@ const Charts = (() => {
           position: 'outside',
           formatter: '{b} {d}%',
           color: '#e0e8ff',
-          fontSize: count <= 4 ? 14 : 12,
+          fontSize: count <= 4 ? 12 : 12,
           fontWeight: 'bold',
           distanceToLabelLine: 2,
         },
