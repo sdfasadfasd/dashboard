@@ -93,7 +93,7 @@
       '<div class="stat-item" style="flex:1;"><div class="stat-num">'+d.total+'</div><div class="stat-label">供应商总数</div></div>' +
       '<div class="stat-item" style="flex:1;"><div class="stat-num" style="color:#00e676;">'+d.aCount+'</div><div class="stat-label">A级供应商</div></div>' +
     '</div>';
-    html += '<div style="font-size:9px;color:#6678a0;margin-bottom:1px;">▎供应商列表</div>';
+    html += '<div style="font-size:12px;color:#6678a0;margin-bottom:1px;">▎供应商列表</div>';
     html += '<div class="supplier-scroll" style="overflow:hidden;flex:1;position:relative;">';
     html += '<div class="supplier-scroll-inner" style="animation:scrollUp 35s linear infinite;">';
     // 打乱顺序
@@ -101,7 +101,7 @@
     var items = '';
     list.forEach(function(s, i){
       var rColor = s.rating==='A'?'#00e676':'#ffd740';
-      items += '<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:11px;">' +
+      items += '<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:13px;">' +
         '<span style="width:5px;height:5px;border-radius:50%;background:'+rColor+';flex-shrink:0;"></span>' +
         '<span style="color:#fff;flex:1;">'+s.name+'</span>' +
         '<span style="color:'+rColor+';font-weight:600;">'+s.rating+'</span>' +
@@ -118,7 +118,7 @@
     body.innerHTML =
       '<div class="stat-hero"><div class="hero-num">'+DataStore.fmtNum(DataStore.getKPI().service)+'</div><div class="hero-label">累计服务人次</div></div>' +
       '<div class="stat-row"><div class="stat-item"><div class="stat-num">'+DataStore.fmtNum(d.todayNew)+'</div><div class="stat-label">今日新增</div></div><div class="stat-item"><div class="stat-num">'+DataStore.fmtNum(d.monthNew)+'</div><div class="stat-label">本月新增</div></div></div>' +
-      '<div style="margin-top:2px;font-size:9px;color:#6678a0;text-align:center;">近7天服务人次趋势</div>' +
+      '<div style="margin-top:2px;font-size:12px;color:#6678a0;text-align:center;">近7天服务人次趋势</div>' +
       '<div class="service-bars">'+d.barDays.map(function(day){var h=Math.round((day.value/d.maxVal)*100);return '<div class="service-bar '+(h>80?'high':'')+'" style="height:'+h+'%" title="'+day.label+': '+DataStore.fmtNum(day.value)+'"></div>';}).join('')+'</div>';
   }
 
@@ -130,14 +130,14 @@
       '<div class="stat-item" style="flex:1;"><div class="stat-num">190</div><div class="stat-label">运输车辆</div></div>' +
       '<div class="stat-item" style="flex:1;"><div class="stat-num" style="color:#00e676;">95</div><div class="stat-label">在途车辆</div></div>' +
     '</div>';
-    html += '<div style="font-size:9px;color:#6678a0;margin-bottom:1px;">▎实时轨迹</div>';
+    html += '<div style="font-size:12px;color:#6678a0;margin-bottom:1px;">▎实时轨迹</div>';
     html += '<div class="vehicle-scroll" style="overflow:hidden;flex:1;position:relative;">';
     html += '<div class="vehicle-scroll-inner" style="animation:scrollUp 20s linear infinite;">';
     // 复制两份实现无缝滚动
     var items = '';
     d.vehicles.forEach(function(v){
       var sColor = v.status==='在途'?'#00d2ff':'#ffd740';
-      items += '<div style="display:flex;align-items:center;gap:4px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:9px;">' +
+      items += '<div style="display:flex;align-items:center;gap:4px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:12px;">' +
         '<span style="color:#fff;font-family:Consolas,monospace;width:72px;">'+v.plate+'</span>' +
         '<span style="color:#8899cc;">'+v.from+'→'+v.to+'</span>' +
         '<span style="color:'+sColor+';margin-left:auto;font-weight:600;">'+v.status+'</span>' +
@@ -182,7 +182,7 @@
   function initMap() {
     var mapDom = document.getElementById('chartMap'); if (!mapDom) return;
     if (typeof WUHAN_GEOJSON === 'undefined') {
-      mapDom.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#ff4081;font-size:11px;">地图数据缺失</div>';
+      mapDom.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#ff4081;font-size:13px;">地图数据缺失</div>';
       return;
     }
     mapDom.innerHTML = '';
