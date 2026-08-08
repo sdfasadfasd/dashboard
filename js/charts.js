@@ -146,7 +146,7 @@ const Charts = (() => {
         value: [v.lng, v.lat],
         symbol: truckIcon,
         symbolSize: 22,
-        symbolRotate: v.status === '返程' ? 180 : 0,
+        symbolRotate: v.status === '在途' ? 180 : 0,
         itemStyle: { color: v.status === '在途' ? '#00d2ff' : '#ffd740' },
         label: { show: false },
       };
