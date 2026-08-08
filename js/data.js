@@ -97,7 +97,7 @@ const DataStore = (() => {
         {name:'湖北兴霖食品有限公司',rating:'B'},{name:'武汉玖意食品有限公司',rating:'B'},
         {name:'武汉好食惠食品有限公司',rating:'B'},
       ],
-      total: 675, active: 675, aCount: 24,
+      total: 675, active: 675, aCount: 68,
     };
   }
 
