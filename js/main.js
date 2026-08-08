@@ -94,17 +94,18 @@
       '<div class="stat-item" style="flex:1;"><div class="stat-num" style="color:#00e676;">'+d.aCount+'</div><div class="stat-label">A级供应商</div></div>' +
     '</div>';
     html += '<div style="font-size:9px;color:#6678a0;margin-bottom:1px;">▎供应商列表</div>';
-    html += '<div style="display:flex;flex-direction:column;gap:0;overflow-y:auto;flex:1;">';
+    html += '<div class="supplier-scroll" style="overflow:hidden;flex:1;position:relative;">';
+    html += '<div class="supplier-scroll-inner" style="animation:scrollUp 35s linear infinite;">';
+    var items = '';
     d.suppliers.forEach(function(s, i){
       var rColor = s.rating==='A'?'#00e676':'#ffd740';
-      html += '<div style="display:flex;align-items:center;gap:6px;padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:9px;">' +
-        '<span style="width:6px;height:6px;border-radius:50%;background:'+rColor+';flex-shrink:0;"></span>' +
+      items += '<div style="display:flex;align-items:center;gap:6px;padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:9px;">' +
+        '<span style="width:5px;height:5px;border-radius:50%;background:'+rColor+';flex-shrink:0;"></span>' +
         '<span style="color:#fff;flex:1;">'+s.name+'</span>' +
-        '<span style="color:#8899cc;">'+s.cat+'</span>' +
         '<span style="color:'+rColor+';font-weight:600;">'+s.rating+'</span>' +
       '</div>';
     });
-    html += '</div>';
+    html += items + items + '</div></div>';
     body.innerHTML = html;
   }
 
