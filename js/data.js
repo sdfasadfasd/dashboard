@@ -141,9 +141,10 @@ const DataStore = (() => {
   ];
   function getVehicleData() {
     var vehicles = DEFAULT_VEHICLES.map(function(v, i) {
-      var coord = FIXED_COORDS[i] || [114.3, 30.6];
+      var lng = 113.9 + Math.random() * 0.9;
+      var lat = 30.2 + Math.random() * 0.8;
       var status = (i===3||i===7||i===11||i===16||i===18) ? '返程' : '在途';
-      return { plate:v.plate, driver:v.driver||'', from:v.from||'', to:v.to||'', status:status, speed:40+Math.floor(Math.random()*20), eta:(15+Math.floor(Math.random()*40))+'min', lng:coord[0], lat:coord[1] };
+      return { plate:v.plate, driver:v.driver||'', from:v.from||'', to:v.to||'', status:status, speed:40+Math.floor(Math.random()*20), eta:(15+Math.floor(Math.random()*40))+'min', lng:lng, lat:lat };
     });
     var active = vehicles.filter(function(v){return v.status==='在途';}).length;
     return { vehicles:vehicles, total:vehicles.length, active:active };
