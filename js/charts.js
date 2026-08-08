@@ -152,14 +152,14 @@ const Charts = (() => {
       };
     });
 
-    // 区域节点标记（不显示标签）
-    const hubScatter = hubs.map(function(h) {
+    // 区域节点标记（只显示总部+中心，不显示绿色仓库）
+    const hubScatter = hubs.filter(function(h) { return h.type !== 'warehouse'; }).map(function(h) {
       return {
         name: h.name,
         value: [h.lng, h.lat],
         symbol: 'pin',
         symbolSize: 22,
-        itemStyle: { color: h.type === 'hq' ? '#ff4081' : h.type === 'center' ? '#00d2ff' : '#00e676' },
+        itemStyle: { color: h.type === 'hq' ? '#ff4081' : '#00d2ff' },
         label: { show: false },
       };
     });
