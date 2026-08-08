@@ -217,11 +217,7 @@
     initCharts(); initMap();
     updateClock(); setInterval(updateClock, 1000);
 
-    // KPI 固定不刷新
-    function scheduleRefresh() {
-      setTimeout(function(){ refreshInfoPanels(); scheduleRefresh(); }, 5000 + Math.random()*3000);
-    }
-    scheduleRefresh();
+    // 全部静态不刷新
 
     var resizeTimer;
     window.addEventListener('resize', function(){ clearTimeout(resizeTimer); resizeTimer = setTimeout(onResize, 200); });
