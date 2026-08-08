@@ -274,41 +274,41 @@ const Charts = (() => {
     if (!dom) return null;
 
     const chart = echarts.init(dom);
-    var colorPalette = ['#00d2ff','#a78bfa','#ff9100','#ff4081'];
+    var count = data.length;
+    var colorPalette = count <= 4 ? ['#00d2ff','#a78bfa','#ff9100','#ff4081'] :
+      ['#00d2ff','#00e676','#ff9100','#ff4081','#a78bfa','#ffd740','#448aff','#1de9b6','#ff6e40','#ea80fc'];
     var totalVal = data.reduce(function(s,it){return s+it.value;},0);
     const opt = {
       ...baseOption(),
       legend: {
-        orient: 'vertical',
-        right: 5,
-        top: 'center',
-        textStyle: { color: '#8899cc', fontSize: 11, rich:{name:{width:60}} },
-        itemWidth: 8,
-        itemHeight: 8,
-        itemGap: 14,
-        formatter: function(name){ return name; },
+        show: false,
       },
       series: [{
         type: 'pie',
-        radius: ['55%', '82%'],
-        center: ['42%', '50%'],
+        radius: ['45%', '80%'],
+        center: ['50%', '50%'],
         avoidLabelOverlap: false,
-        padAngle: 3,
+        padAngle: 2,
         itemStyle: {
-          borderRadius: 8,
+          borderRadius: 4,
           borderColor: 'rgba(7, 11, 36, 1)',
-          borderWidth: 4,
+          borderWidth: 2,
         },
         label: {
           show: true,
-          position: 'inside',
-          formatter: '{d}%',
-          fontSize: 16,
-          fontWeight: 'bold',
-          color: '#fff',
+          position: 'outside',
+          formatter: '{b} {d}%',
+          color: '#bcc8e8',
+          fontSize: 10,
+          distanceToLabelLine: 4,
+        },
+        labelLine: {
+          length: 12,
+          length2: 16,
+          lineStyle: { color: 'rgba(255,255,255,0.12)' },
         },
         data: data.map(function(it, i) {
-          return { name: it.name+' '+it.percent, value: it.value, itemStyle: { color: colorPalette[i % colorPalette.length] } };
+          return { name: it.name, value: it.value, itemStyle: { color: colorPalette[i % colorPalette.length] } };
         }),
       }],
     };
