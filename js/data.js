@@ -52,14 +52,18 @@ const DataStore = (() => {
     {label:'供应商审核通过',val:98.2,color:'orange'}
   ];
   function getTraceabilityData() {
-    var items = cfgArr('trace_items', DEFAULT_TRACE);
-    var base = cfg('tr_tests', 85);
     return {
-      items: items.map(function(it) { return { label:it.label, val:it.val+Math.random()*0.6, color:it.color||'cyan' }; }),
+      items: [
+        { label:'检测合格率', val:99.3, color:'green' },
+        { label:'冷链达标率', val:97.2, color:'cyan' },
+        { label:'农残检测通过率', val:98.5, color:'green' },
+        { label:'批次追溯覆盖率', val:100, color:'purple' },
+        { label:'供应商审核通过', val:98.2, color:'orange' },
+      ],
       latestBatch: cfg('tr_prefix','WH') + new Date().toISOString().slice(0,10).replace(/-/g,'') + '001',
       batchStatus: '已通过',
-      todayTests: Math.round(base + Math.random()*30),
-      abnormalCount: Math.floor(Math.random()*2),
+      todayTests: 85,
+      abnormalCount: 0,
     };
   }
 
