@@ -140,7 +140,7 @@ const DataStore = (() => {
     [114.320,30.560],[114.350,30.520],[114.250,30.600],[114.380,30.700],[114.500,30.600]
   ];
   function getVehicleData() {
-    var vehicles = cfgArr('vehicles', DEFAULT_VEHICLES).map(function(v, i) {
+    var vehicles = DEFAULT_VEHICLES.map(function(v, i) {
       var coord = FIXED_COORDS[i] || [114.3, 30.6];
       var status = (i===3||i===7||i===11||i===16||i===18) ? '返程' : '在途';
       return { plate:v.plate, driver:v.driver||'', from:v.from||'', to:v.to||'', status:status, speed:40+Math.floor(Math.random()*20), eta:(15+Math.floor(Math.random()*40))+'min', lng:coord[0], lat:coord[1] };
