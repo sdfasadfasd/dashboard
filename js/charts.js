@@ -286,7 +286,7 @@ const Charts = (() => {
       series: [{
         type: 'pie',
         radius: ['30%', '55%'],
-        center: ['45%', '50%'],
+        center: ['50%', '50%'],
         avoidLabelOverlap: false,
         padAngle: 1,
         itemStyle: {
