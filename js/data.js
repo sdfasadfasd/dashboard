@@ -106,14 +106,16 @@ const DataStore = (() => {
 
   /* ================ 车辆轨迹 ================ */
   var DEFAULT_VEHICLES = [
-    {plate:'鄂A·LK8821',driver:'张建国',from:'江汉区',to:'洪山区'},{plate:'鄂A·LK6625',driver:'李卫东',from:'武昌区',to:'东西湖区'},
-    {plate:'鄂A·LK5318',driver:'王志强',from:'江岸区',to:'江夏区'},{plate:'鄂A·LK3902',driver:'赵明辉',from:'汉阳区',to:'江汉区'},
-    {plate:'鄂A·LK2076',driver:'陈永发',from:'硚口区',to:'黄陂区'},{plate:'鄂A·LK1533',driver:'刘大伟',from:'青山区',to:'蔡甸区'},
-    {plate:'鄂A·LK0891',driver:'周华军',from:'洪山区',to:'新洲区'},{plate:'鄂A·LK9720',driver:'孙志刚',from:'江夏区',to:'武昌区'},
-    {plate:'鄂A·LK4456',driver:'吴永强',from:'东湖高新',to:'江汉区'},{plate:'鄂A·LK3782',driver:'郑光明',from:'汉南区',to:'东西湖区'},
-    {plate:'鄂A·LK2901',driver:'黄文斌',from:'经开',to:'武昌区'},{plate:'鄂A·LK1683',driver:'杨海峰',from:'江岸区',to:'东湖高新'}
+    {plate:'鄂A·LK8801',driver:'张建国',from:'江汉区',to:'洪山区'},{plate:'鄂A·LK8802',driver:'李卫东',from:'武昌区',to:'东西湖区'},
+    {plate:'鄂A·LK8803',driver:'王志强',from:'江岸区',to:'江夏区'},{plate:'鄂A·LK8805',driver:'赵明辉',from:'汉阳区',to:'黄陂区'},
+    {plate:'鄂A·LK8806',driver:'陈永发',from:'硚口区',to:'蔡甸区'},{plate:'鄂A·LK8807',driver:'刘大伟',from:'青山区',to:'新洲区'},
+    {plate:'鄂A·LK8808',driver:'周华军',from:'洪山区',to:'汉南区'},{plate:'鄂A·LK8809',driver:'孙志刚',from:'江夏区',to:'江岸区'},
+    {plate:'鄂A·LK8810',driver:'吴永强',from:'东湖高新',to:'江汉区'},{plate:'鄂A·LK8811',driver:'郑光明',from:'武汉经开',to:'东西湖区'},
+    {plate:'鄂A·LK8812',driver:'黄文斌',from:'汉南区',to:'硚口区'},{plate:'鄂A·LK8813',driver:'杨海峰',from:'黄陂区',to:'青山区'},
+    {plate:'鄂A·LK8815',driver:'马国良',from:'蔡甸区',to:'武昌区'},{plate:'鄂A·LK8816',driver:'朱志远',from:'新洲区',to:'汉阳区'},
+    {plate:'鄂A·LK8817',driver:'林海生',from:'东西湖区',to:'东湖高新'}
   ];
-  var VEH_COORDS = [[114.32,30.55],[114.25,30.58],[114.33,30.45],[114.26,30.57],[114.33,30.72],[114.18,30.58],[114.55,30.68],[114.33,30.42],[114.42,30.52],[114.20,30.35],[114.17,30.46],[114.35,30.50]];
+  var VEH_COORDS = [[114.33,30.53],[114.32,30.58],[114.33,30.48],[114.24,30.65],[114.22,30.50],[114.40,30.65],[114.42,30.38],[114.33,30.42],[114.43,30.50],[114.17,30.55],[114.22,30.38],[114.42,30.72],[114.20,30.52],[114.70,30.62],[114.18,30.60]];
   function getVehicleData() {
     var vehicles = cfgArr('vehicles', DEFAULT_VEHICLES).map(function(v, i) {
       var coord = VEH_COORDS[i] || [114.3+Math.random()*0.5, 30.5+Math.random()*0.3];
