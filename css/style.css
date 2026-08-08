@@ -186,7 +186,7 @@ html, body {
 /* 车辆轨迹滚动 */
 .vehicle-scroll { overflow: hidden; flex: 1; position: relative; }
 .vehicle-scroll-inner { animation: scrollUp 20s linear infinite; }
-.vehicle-scroll-inner:hover { animation-play-state: paused; }
+.vehicle-scroll-inner:hover, .supplier-scroll-inner:hover { animation-play-state: paused; }
 @keyframes scrollUp {
   0%   { transform: translateY(0); }
   100% { transform: translateY(-50%); }
