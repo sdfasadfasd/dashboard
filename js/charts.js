@@ -145,7 +145,7 @@ const Charts = (() => {
         name: v.plate + ' ' + v.from + '→' + v.to,
         value: [v.lng, v.lat],
         symbol: truckIcon,
-        symbolSize: 22,
+        symbolSize: 16,
         itemStyle: { color: v.status === '在途' ? '#00d2ff' : '#ffd740' },
         label: { show: false },
       };
@@ -162,7 +162,7 @@ const Charts = (() => {
       geo: {
         map: 'hubei',
         roam: true,
-        zoom: 3.2,
+        zoom: 2.8,
         center: [114.35, 30.62],
         aspectScale: 0.72,
         itemStyle: {
