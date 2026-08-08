@@ -287,8 +287,8 @@ const Charts = (() => {
       },
       series: [{
         type: 'pie',
-        radius: ['25%', '48%'],
-        center: ['42%', '50%'],
+        radius: count <= 4 ? ['35%', '65%'] : ['25%', '48%'],
+        center: count <= 4 ? ['50%', '50%'] : ['42%', '50%'],
         avoidLabelOverlap: false,
         padAngle: 1,
         itemStyle: {
@@ -301,14 +301,14 @@ const Charts = (() => {
           position: 'outside',
           formatter: '{b} {d}%',
           color: '#e0e8ff',
-          fontSize: 10,
+          fontSize: count <= 4 ? 14 : 10,
           fontWeight: 'bold',
           distanceToLabelLine: 2,
         },
         labelLine: {
-          length: 5,
-          length2: 6,
-          lineStyle: { color: 'rgba(255,255,255,0.16)' },
+          length: count <= 4 ? 10 : 5,
+          length2: count <= 4 ? 14 : 6,
+          lineStyle: { color: 'rgba(255,255,255,0.2)' },
         },
         data: data.map(function(it, i) {
           return { name: it.name, value: it.value, itemStyle: { color: colorPalette[i % colorPalette.length] } };
