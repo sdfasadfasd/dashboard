@@ -140,8 +140,8 @@ html, body {
 /* ================ 进度条 ================ */
 .progress-item { display: flex; flex-direction: column; gap: 1px; }
 .progress-head { display: flex; justify-content: space-between; align-items: baseline; }
-.progress-head .label { font-size: 9px; color: var(--text-secondary); }
-.progress-head .val  { font-size: 10px; font-weight: 600; font-family: var(--font-mono); color: #fff; }
+.progress-head .label { font-size: 11px; color: var(--text-secondary); }
+.progress-head .val  { font-size: 12px; font-weight: 600; font-family: var(--font-mono); color: #fff; }
 .progress-bar { height: 5px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
 .progress-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-teal)); }
 .progress-fill.green  { background: linear-gradient(90deg, var(--accent-green), var(--accent-teal)); }
@@ -156,8 +156,8 @@ html, body {
 /* 双栏卡片 */
 .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
 .stat-item { background: rgba(255,255,255,0.03); border-radius: 3px; padding: 5px; text-align: center; }
-.stat-item .stat-num { font-size: 15px; font-weight: 700; font-family: var(--font-mono); color: #fff; }
-.stat-item .stat-label { font-size: 8px; color: var(--text-secondary); margin-top: 1px; }
+.stat-item .stat-num { font-size: 18px; font-weight: 700; font-family: var(--font-mono); color: #fff; }
+.stat-item .stat-label { font-size: 10px; color: var(--text-secondary); margin-top: 2px; }
 
 /* 批次标签 */
 .batch-tag { display: flex; align-items: center; gap: 4px; padding: 4px 6px; background: rgba(0,230,118,0.08); border: 1px solid rgba(0,230,118,0.2); border-radius: 4px; font-size: 9px; }
@@ -166,7 +166,7 @@ html, body {
 
 /* 供应链列表 */
 .supply-list { display: flex; flex-direction: column; gap: 2px; }
-.supply-row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 9px; }
+.supply-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 11px; }
 .supply-row .s-label { color: var(--text-secondary); }
 .supply-row .s-val { font-weight: 600; font-family: var(--font-mono); color: #fff; }
 
