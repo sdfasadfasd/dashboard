@@ -145,8 +145,8 @@ const Charts = (() => {
         name: v.plate + ' ' + v.from + '→' + v.to,
         value: [v.lng, v.lat],
         symbol: truckIcon,
-        symbolSize: 16,
-        itemStyle: { color: v.status === '在途' ? '#00d2ff' : '#ffd740' },
+        symbolSize: 20,
+        itemStyle: { color: v.status === '在途' ? '#00d2ff' : '#ffd740', shadowBlur: 8, shadowColor: 'rgba(0,210,255,0.6)' },
         label: { show: false },
       };
     });
@@ -209,7 +209,7 @@ const Charts = (() => {
           type: 'scatter',
           coordinateSystem: 'geo',
           data: vehicleScatter,
-          zlevel: 2,
+          zlevel: 6,
         },
       ],
     };
