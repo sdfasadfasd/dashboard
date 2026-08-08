@@ -78,18 +78,26 @@ const DataStore = (() => {
   function getSupplierData() {
     return {
       suppliers: [
-        {name:'武汉中粮肉食',cat:'肉禽蛋品',rating:'A',status:'正常'},
-        {name:'襄阳正大食品',cat:'肉禽蛋品',rating:'A',status:'正常'},
-        {name:'洪湖水产养殖',cat:'冷冻水产',rating:'B',status:'正常'},
-        {name:'荆门粮油集团',cat:'粮油调味',rating:'A',status:'正常'},
-        {name:'恩施高山蔬菜',cat:'生鲜果蔬',rating:'B',status:'正常'},
-        {name:'宜昌柑橘合作社',cat:'生鲜果蔬',rating:'A',status:'正常'},
-        {name:'武汉光明乳业',cat:'乳制品',rating:'A',status:'正常'},
-        {name:'黄石调味品厂',cat:'粮油调味',rating:'B',status:'正常'},
-        {name:'孝感米酒食品',cat:'粮油调味',rating:'A',status:'正常'},
-        {name:'咸宁烘焙原料',cat:'烘焙原料',rating:'B',status:'正常'},
+        {name:'中粮集团有限公司',rating:'A'},{name:'益海嘉里金龙鱼食品集团股份有限公司',rating:'A'},
+        {name:'正大集团',rating:'A'},{name:'重庆恒都农业集团有限公司',rating:'A'},
+        {name:'佛山市海天调味食品股份有限公司',rating:'A'},{name:'李锦记集团有限公司',rating:'A'},
+        {name:'上海太太乐食品有限公司',rating:'A'},{name:'祖名豆制品集团股份有限公司',rating:'A'},
+        {name:'温氏食品集团股份有限公司',rating:'A'},{name:'厦门绿帝生态股份有限公司',rating:'A'},
+        {name:'三全食品股份有限公司',rating:'A'},{name:'上海味好美食品有限公司',rating:'A'},
+        {name:'五常市乔府大院农业股份有限公司',rating:'A'},{name:'安井食品集团股份有限公司',rating:'A'},
+        {name:'五得利面粉集团有限公司',rating:'A'},{name:'中粮福临门食品营销有限公司',rating:'A'},
+        {name:'河南华英农业发展股份有限公司',rating:'A'},{name:'山东鲁花集团股份有限公司',rating:'A'},
+        {name:'郑州千味央厨食品股份有限公司',rating:'A'},{name:'北京二商王致和食品有限公司',rating:'A'},
+        {name:'郑州思念食品有限公司',rating:'A'},{name:'江苏恒顺醋业股份有限公司',rating:'A'},
+        {name:'湖北盐业集团有限公司武汉分公司',rating:'A'},{name:'武汉市大佳食品有限公司',rating:'B'},
+        {name:'湖北豆麦鲜食品有限公司',rating:'B'},{name:'武汉米澜仓生鲜配送有限公司',rating:'B'},
+        {name:'武汉柚禾供应链有限公司',rating:'B'},{name:'武汉隆友食品有限公司',rating:'B'},
+        {name:'武汉伯贤达仕科技有限公司',rating:'B'},{name:'湖北顶膳食品有限公司',rating:'B'},
+        {name:'武汉昱鑫伟业商贸有限公司',rating:'B'},{name:'湖北省卤小仙食品有限公司',rating:'B'},
+        {name:'湖北兴霖食品有限公司',rating:'B'},{name:'武汉玖意食品有限公司',rating:'B'},
+        {name:'武汉好食惠食品有限公司',rating:'B'},
       ],
-      total: 675, active: 675, aCount: 68,
+      total: 675, active: 675, aCount: 24,
     };
   }
 
