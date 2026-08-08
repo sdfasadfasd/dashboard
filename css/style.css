@@ -140,9 +140,9 @@ html, body {
 /* ================ 进度条 ================ */
 .progress-item { display: flex; flex-direction: column; gap: 1px; }
 .progress-head { display: flex; justify-content: space-between; align-items: baseline; }
-.progress-head .label { font-size: 24px; color: #bcc8e8; font-weight: 600; }
-.progress-head .val  { font-size: 32px; font-weight: 800; font-family: var(--font-mono); color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-.progress-bar { height: 20px; border-radius: 10px; background: rgba(255,255,255,0.06); overflow: hidden; }
+.progress-head .label { font-size: 1.3vw; color: #bcc8e8; font-weight: 600; }
+.progress-head .val  { font-size: 1.7vw; font-weight: 800; font-family: var(--font-mono); color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+.progress-bar { height: 1vw; border-radius: 0.5vw; background: rgba(255,255,255,0.06); overflow: hidden; }
 .progress-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-teal)); }
 .progress-fill.green  { background: linear-gradient(90deg, var(--accent-green), var(--accent-teal)); }
 .progress-fill.orange { background: linear-gradient(90deg, var(--accent-orange), #ffd740); }
@@ -156,8 +156,8 @@ html, body {
 /* 双栏卡片 */
 .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
 .stat-item { background: rgba(255,255,255,0.03); border-radius: 3px; padding: 5px; text-align: center; }
-.stat-item .stat-num { font-size: 60px; font-weight: 800; font-family: var(--font-mono); color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
-.stat-item .stat-label { font-size: 24px; color: #bcc8e8; margin-top: 8px; font-weight: 600; }
+.stat-item .stat-num { font-size: 3vw; font-weight: 800; font-family: var(--font-mono); color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+.stat-item .stat-label { font-size: 1.3vw; color: #bcc8e8; margin-top: 0.5vw; font-weight: 600; }
 
 /* 批次标签 */
 .batch-tag { display: flex; align-items: center; gap: 4px; padding: 4px 6px; background: rgba(0,230,118,0.08); border: 1px solid rgba(0,230,118,0.2); border-radius: 4px; font-size: 9px; }
@@ -166,7 +166,7 @@ html, body {
 
 /* 供应链列表 */
 .supply-list { display: flex; flex-direction: column; gap: 2px; }
-.supply-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 22px; }
+.supply-row { display: flex; justify-content: space-between; align-items: center; padding: 0.5vw 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 1.2vw; }
 .supply-row .s-label { color: #bcc8e8; font-weight: 600; }
 .supply-row .s-val { font-weight: 600; font-family: var(--font-mono); color: #fff; }
 
