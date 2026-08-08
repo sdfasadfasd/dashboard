@@ -75,27 +75,14 @@
     }).join('');
   }
 
-  /* ================ 商品细化分类面板 ================ */
+  /* ================ 商品细化分类面板（饼图） ================ */
+  var productPieChart = null;
   function renderProductDetail() {
-    var body = document.getElementById('productBody'); if (!body) return;
-    var d = DataStore.getProductDetailData();
-    var groups = {};
-    d.items.forEach(function(it) {
-      if (!groups[it.cat]) groups[it.cat] = [];
-      groups[it.cat].push(it);
-    });
-    var html = '';
-    var gi = 0;
-    Object.keys(groups).forEach(function(cat) {
-      var color = CAT_COLORS[gi % CAT_COLORS.length];
-      html += '<div style="font-size:9px;color:'+color+';margin:1px 0 0;letter-spacing:1px;">▎'+cat+'</div>';
-      groups[cat].forEach(function(it) {
-        var w = Math.round((it.val / d.maxVal) * 100);
-        html += '<div class="cat-row"><span class="cat-name">'+it.name+'</span><span class="cat-bar-wrap"><span class="cat-bar-fill" style="width:'+w+'%;background:'+color+';"></span></span><span class="cat-val">'+DataStore.fmtNum(it.val)+'</span></div>';
-      });
-      gi++;
-    });
-    body.innerHTML = '<div class="cat-list">'+html+'</div>';
+    var dom = document.getElementById('chartProductPie');
+    if (!dom) return;
+    if (productPieChart) productPieChart.dispose();
+    productPieChart = Charts.renderPie('chartProductPie', DataStore.getProductPieData());
+    if (productPieChart) chartInstances.push(productPieChart);
   }
 
   /* ================ 供应商信息面板 ================ */
