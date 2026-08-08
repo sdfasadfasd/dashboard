@@ -140,11 +140,16 @@ const DataStore = (() => {
     [114.320,30.560],[114.350,30.520],[114.250,30.600],[114.380,30.700],[114.500,30.600]
   ];
   function getVehicleData() {
+    // 15个区中心 + 5个随机位置
+    var centers = [[114.303,30.595],[114.283,30.579],[114.265,30.571],[114.266,30.549],[114.307,30.547],
+      [114.397,30.634],[114.401,30.504],[114.142,30.622],[114.081,30.310],[114.029,30.582],
+      [114.314,30.349],[114.374,30.874],[114.802,30.842],[114.450,30.500],[114.170,30.480]];
     var vehicles = DEFAULT_VEHICLES.map(function(v, i) {
-      var lng = 113.9 + Math.random() * 0.9;
-      var lat = 30.2 + Math.random() * 0.8;
+      var coord;
+      if (i < 15) { coord = centers[i]; }
+      else { coord = [113.95 + Math.random()*0.7, 30.25 + Math.random()*0.6]; }
       var status = (i===3||i===7||i===11||i===16||i===18) ? '返程' : '在途';
-      return { plate:v.plate, driver:v.driver||'', from:v.from||'', to:v.to||'', status:status, speed:40+Math.floor(Math.random()*20), eta:(15+Math.floor(Math.random()*40))+'min', lng:lng, lat:lat };
+      return { plate:v.plate, driver:v.driver||'', from:v.from||'', to:v.to||'', status:status, speed:40+Math.floor(Math.random()*20), eta:(15+Math.floor(Math.random()*40))+'min', lng:coord[0], lat:coord[1] };
     });
     var active = vehicles.filter(function(v){return v.status==='在途';}).length;
     return { vehicles:vehicles, total:vehicles.length, active:active };
