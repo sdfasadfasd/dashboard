@@ -306,8 +306,8 @@ const Charts = (() => {
           distanceToLabelLine: 2,
         },
         labelLine: {
-          length: count <= 4 ? 10 : 5,
-          length2: count <= 4 ? 14 : 6,
+          length: count <= 4 ? 3 : 5,
+          length2: count <= 4 ? 5 : 6,
           lineStyle: { color: 'rgba(255,255,255,0.2)' },
         },
         data: data.map(function(it, i) {
