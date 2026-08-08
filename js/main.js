@@ -181,25 +181,19 @@
 
   function initMap() {
     var mapDom = document.getElementById('chartMap'); if (!mapDom) return;
-    mapDom.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8899cc;font-size:12px;">武汉市地图加载中...</div>';
-    // 武汉市 GeoJSON（本地文件）
-    fetch('js/wuhan.json')
-      .then(function(res){return res.json();})
-      .then(function(geoJSON){
-        mapDom.innerHTML = '';
-        var vehData = DataStore.getVehicleData();
-        // 飞线 = 从起点区到车辆当前位置
-        var vehRoutes = vehData.vehicles.map(function(v, i) {
-          var hubs = DataStore.logisticsHubs();
-          var fromHub = hubs.find(function(h){return h.name === v.from;}) || {lng:114.3,lat:30.6};
-          return { from: {name:v.from,lng:fromHub.lng,lat:fromHub.lat}, to: {name:v.plate,lng:v.lng,lat:v.lat}, value:100 };
-        });
-        var mapChart = Charts.renderMap('chartMap', geoJSON, DataStore.logisticsHubs(), vehRoutes, vehData.vehicles);
-        if(mapChart) chartInstances.push(mapChart);
-      })
-      .catch(function(){
-        mapDom.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#8899cc;gap:6px;"><span style="font-size:24px;">🗺</span><span style="font-size:11px;">地图加载失败</span><span style="font-size:10px;color:#556688;">请检查网络后刷新</span></div>';
-      });
+    if (typeof WUHAN_GEOJSON === 'undefined') {
+      mapDom.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#ff4081;font-size:11px;">地图数据缺失</div>';
+      return;
+    }
+    mapDom.innerHTML = '';
+    var vehData = DataStore.getVehicleData();
+    var vehRoutes = vehData.vehicles.map(function(v, i) {
+      var hubs = DataStore.logisticsHubs();
+      var fromHub = hubs.find(function(h){return h.name === v.from;}) || {lng:114.3,lat:30.6};
+      return { from: {name:v.from,lng:fromHub.lng,lat:fromHub.lat}, to: {name:v.plate,lng:v.lng,lat:v.lat}, value:100 };
+    });
+    var mapChart = Charts.renderMap('chartMap', WUHAN_GEOJSON, DataStore.logisticsHubs(), vehRoutes, vehData.vehicles);
+    if(mapChart) chartInstances.push(mapChart);
   }
 
   function onResize() { Charts.resizeAll(chartInstances); }
