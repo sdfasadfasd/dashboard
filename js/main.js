@@ -137,21 +137,24 @@
     var body = document.getElementById('vehicleBody'); if (!body) return;
     var d = DataStore.getVehicleData();
     var html = '<div style="display:flex;gap:5px;margin-bottom:3px;">' +
-      '<div class="stat-item" style="flex:1;"><div class="stat-num">'+d.total+'</div><div class="stat-label">运输车辆</div></div>' +
-      '<div class="stat-item" style="flex:1;"><div class="stat-num" style="color:#00e676;">'+d.active+'</div><div class="stat-label">在途车辆</div></div>' +
+      '<div class="stat-item" style="flex:1;"><div class="stat-num">190</div><div class="stat-label">运输车辆</div></div>' +
+      '<div class="stat-item" style="flex:1;"><div class="stat-num" style="color:#00e676;">95</div><div class="stat-label">在途车辆</div></div>' +
     '</div>';
     html += '<div style="font-size:9px;color:#6678a0;margin-bottom:1px;">▎实时轨迹</div>';
-    html += '<div style="display:flex;flex-direction:column;gap:0;overflow-y:auto;flex:1;">';
+    html += '<div class="vehicle-scroll" style="overflow:hidden;flex:1;position:relative;">';
+    html += '<div class="vehicle-scroll-inner" style="animation:scrollUp 20s linear infinite;">';
+    // 复制两份实现无缝滚动
+    var items = '';
     d.vehicles.forEach(function(v){
       var sColor = v.status==='在途'?'#00d2ff':'#ffd740';
-      html += '<div style="display:flex;align-items:center;gap:4px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:9px;">' +
+      items += '<div style="display:flex;align-items:center;gap:4px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:9px;">' +
         '<span style="color:#fff;font-family:Consolas,monospace;width:72px;">'+v.plate+'</span>' +
         '<span style="color:#8899cc;">'+v.from+'→'+v.to+'</span>' +
         '<span style="color:'+sColor+';margin-left:auto;font-weight:600;">'+v.status+'</span>' +
         '<span style="color:#6678a0;">'+v.eta+'</span>' +
       '</div>';
     });
-    html += '</div>';
+    html += items + items + '</div></div>';
     body.innerHTML = html;
   }
 
