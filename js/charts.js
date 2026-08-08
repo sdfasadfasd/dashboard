@@ -301,7 +301,7 @@ const Charts = (() => {
           position: 'outside',
           formatter: '{b} {d}%',
           color: '#e0e8ff',
-          fontSize: count <= 4 ? 12 : 12,
+          fontSize: count <= 4 ? 10 : 10,
           fontWeight: 'bold',
           distanceToLabelLine: 2,
         },
