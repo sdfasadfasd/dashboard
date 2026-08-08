@@ -71,7 +71,7 @@
     var d = DataStore.getTraceabilityData();
     var colorMap = { green:'green', cyan:'', purple:'purple', orange:'orange' };
     body.innerHTML = d.items.map(function(it){
-      return '<div class="progress-item"><div class="progress-head"><span class="label">'+it.label+'</span><span class="val">'+it.val.toFixed(2)+'%</span></div><div class="progress-bar"><div class="progress-fill '+(colorMap[it.color]||'')+'" style="width:'+it.val+'%"></div></div></div>';
+      return '<div class="progress-item"><div class="progress-head"><span class="label">'+it.label+'</span><span class="val">'+String(it.val)+'%</span></div><div class="progress-bar"><div class="progress-fill '+(colorMap[it.color]||'')+'" style="width:'+it.val+'%"></div></div></div>';
     }).join('');
   }
 
