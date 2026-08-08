@@ -109,9 +109,11 @@ const DataStore = (() => {
     {plate:'鄂A·LK8821',driver:'张建国',from:'江汉区',to:'洪山区'},{plate:'鄂A·LK6625',driver:'李卫东',from:'武昌区',to:'东西湖区'},
     {plate:'鄂A·LK5318',driver:'王志强',from:'江岸区',to:'江夏区'},{plate:'鄂A·LK3902',driver:'赵明辉',from:'汉阳区',to:'江汉区'},
     {plate:'鄂A·LK2076',driver:'陈永发',from:'硚口区',to:'黄陂区'},{plate:'鄂A·LK1533',driver:'刘大伟',from:'青山区',to:'蔡甸区'},
-    {plate:'鄂A·LK0891',driver:'周华军',from:'洪山区',to:'新洲区'},{plate:'鄂A·LK9720',driver:'孙志刚',from:'江夏区',to:'武昌区'}
+    {plate:'鄂A·LK0891',driver:'周华军',from:'洪山区',to:'新洲区'},{plate:'鄂A·LK9720',driver:'孙志刚',from:'江夏区',to:'武昌区'},
+    {plate:'鄂A·LK4456',driver:'吴永强',from:'东湖高新',to:'江汉区'},{plate:'鄂A·LK3782',driver:'郑光明',from:'汉南区',to:'东西湖区'},
+    {plate:'鄂A·LK2901',driver:'黄文斌',from:'经开',to:'武昌区'},{plate:'鄂A·LK1683',driver:'杨海峰',from:'江岸区',to:'东湖高新'}
   ];
-  var VEH_COORDS = [[114.32,30.55],[114.25,30.58],[114.33,30.45],[114.26,30.57],[114.33,30.72],[114.18,30.58],[114.55,30.68],[114.33,30.42]];
+  var VEH_COORDS = [[114.32,30.55],[114.25,30.58],[114.33,30.45],[114.26,30.57],[114.33,30.72],[114.18,30.58],[114.55,30.68],[114.33,30.42],[114.42,30.52],[114.20,30.35],[114.17,30.46],[114.35,30.50]];
   function getVehicleData() {
     var vehicles = cfgArr('vehicles', DEFAULT_VEHICLES).map(function(v, i) {
       var coord = VEH_COORDS[i] || [114.3+Math.random()*0.5, 30.5+Math.random()*0.3];
