@@ -204,14 +204,14 @@ const Charts = (() => {
           data: linesSeries,
           lineStyle: {
             color: COLORS.cyan,
-            width: 1,
-            opacity: 0.3,
-            curveness: 0.2,
+            width: 0.6,
+            opacity: 0.25,
+            curveness: 0.1,
           },
           effect: {
             show: true,
             period: 6,
-            trailLength: 0.3,
+            trailLength: 0.15,
             symbol: 'arrow',
             symbolSize: 5,
             color: '#00e676',
