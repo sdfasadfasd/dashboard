@@ -127,7 +127,7 @@ const Charts = (() => {
 
     // 飞线（随机曲度，自然散布）
     const linesData = routes.map(function(r, i) {
-      var c = (Math.random() - 0.5) * 1.0; // -0.3 ~ +0.3 随机弯曲
+      var c = (Math.random() - 0.5) * 0.4; // -0.3 ~ +0.3 随机弯曲
       return {
         coords: [[r.from.lng, r.from.lat], [r.to.lng, r.to.lat]],
         lineStyle: { color: 'rgba(0,210,255,0.3)', width: 0.8, curveness: c },
