@@ -187,10 +187,10 @@
     }
     mapDom.innerHTML = '';
     var vehData = DataStore.getVehicleData();
-    var vehRoutes = vehData.vehicles.filter(function(v,i){return i%3===0;}).map(function(v, i) {
+    var vehRoutes = vehData.vehicles.map(function(v, i) {
       var hubs = DataStore.logisticsHubs();
-      var fromHub = hubs[0];
-      return { from: {name:v.from,lng:fromHub.lng,lat:fromHub.lat}, to: {name:v.plate,lng:v.lng,lat:v.lat}, value:100 };
+      var hq = hubs[0];
+      return { from: {name:'总部',lng:hq.lng,lat:hq.lat}, to: {name:v.plate,lng:v.lng,lat:v.lat}, value:100 };
     });
     var mapChart = Charts.renderMap('chartMap', WUHAN_GEOJSON, DataStore.logisticsHubs(), vehRoutes, vehData.vehicles);
     if(mapChart) chartInstances.push(mapChart);
