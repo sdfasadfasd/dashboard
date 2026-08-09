@@ -34,8 +34,7 @@ const DataStore = (() => {
   ];
 
   function getLogisticsHubs() {
-    var arr = cfgArr('hubs', DEFAULT_HUBS);
-    return arr.map(function(h, i) {
+    return DEFAULT_HUBS.map(function(h, i) {
       var coord = HUB_LNGLAT[i] || HUB_LNGLAT[HUB_LNGLAT.length-1];
       return { name: h.name, lng: coord[0], lat: coord[1], type: h.type || 'warehouse' };
     });
