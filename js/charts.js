@@ -210,8 +210,8 @@ const Charts = (() => {
           },
           effect: {
             show: true,
-            period: 6,
-            trailLength: 0.04,
+            period: 8,
+            trailLength: 0.02,
             symbol: 'arrow',
             symbolSize: 2,
             color: '#00e676',
