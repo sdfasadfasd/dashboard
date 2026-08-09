@@ -211,9 +211,9 @@ const Charts = (() => {
           effect: {
             show: true,
             period: 6,
-            trailLength: 0.15,
+            trailLength: 0.08,
             symbol: 'arrow',
-            symbolSize: 5,
+            symbolSize: 3,
             color: '#00e676',
           },
           zlevel: 4,
