@@ -162,9 +162,9 @@ const Charts = (() => {
       geo: {
         map: 'hubei',
         roam: true,
-        zoom: 1.6,
-        center: [114.40, 30.55],
-        aspectScale: 0.72,
+        zoom: 1.5,
+        center: [114.40, 30.45],
+        aspectScale: 0.75,
         itemStyle: {
           areaColor: 'rgba(10, 25, 60, 0.7)',
           borderColor: 'rgba(0, 180, 255, 0.3)',
