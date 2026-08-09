@@ -125,11 +125,12 @@ const Charts = (() => {
     echarts.registerMap('hubei', geoJSON);
     const chart = echarts.init(dom);
 
-    // 飞线
-    const linesData = routes.map(function(r) {
+    // 飞线（随机曲度，自然散布）
+    const linesData = routes.map(function(r, i) {
+      var c = (Math.random() - 0.5) * 0.6; // -0.3 ~ +0.3 随机弯曲
       return {
         coords: [[r.from.lng, r.from.lat], [r.to.lng, r.to.lat]],
-        lineStyle: { color: 'rgba(0,210,255,0.35)', width: 1, curveness: 0.3 },
+        lineStyle: { color: 'rgba(0,210,255,0.3)', width: 0.8, curveness: c },
       };
     });
 
@@ -140,7 +141,7 @@ const Charts = (() => {
         name: v.plate + ' ' + v.from + '→' + v.to + ' ' + v.status,
         value: [v.lng, v.lat],
         symbol: truck,
-        symbolSize: 10,
+        symbolSize: 6,
         itemStyle: { color: v.status === '在途' ? '#00d2ff' : '#ffd740' },
         label: { show: false },
       };
