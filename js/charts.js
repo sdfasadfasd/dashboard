@@ -133,14 +133,15 @@ const Charts = (() => {
       };
     });
 
-    // 车辆圆点
+    // 小车图标
+    var truck = 'path://M20,8 L17,8 L17,4 L3,4 C1.9,4 1,4.9 1,6 L1,17 L3,17 C3,18.66 4.34,20 6,20 C7.66,20 9,18.66 9,17 L15,17 C15,18.66 16.34,20 18,20 C19.66,20 21,18.66 21,17 L23,17 L23,12 Z M6,18.5 C5.17,18.5 4.5,17.83 4.5,17 C4.5,16.17 5.17,15.5 6,15.5 C6.83,15.5 7.5,16.17 7.5,17 C7.5,17.83 6.83,18.5 6,18.5 Z M19.5,9 L21.46,11.5 L17,11.5 L17,9 Z M18,18.5 C17.17,18.5 16.5,17.83 16.5,17 C16.5,16.17 17.17,15.5 18,15.5 C18.83,15.5 19.5,16.17 19.5,17 C19.5,17.83 18.83,18.5 18,18.5 Z';
     const vehMarkers = (vehicles || []).map(function(v) {
       return {
         name: v.plate + ' ' + v.from + '→' + v.to + ' ' + v.status,
         value: [v.lng, v.lat],
-        symbol: 'circle',
-        symbolSize: 8,
-        itemStyle: { color: v.status === '在途' ? '#00d2ff' : '#ffd740', borderColor: '#fff', borderWidth: 1.5, shadowBlur: 6, shadowColor: 'rgba(0,210,255,0.5)' },
+        symbol: truck,
+        symbolSize: 14,
+        itemStyle: { color: v.status === '在途' ? '#00d2ff' : '#ffd740' },
         label: { show: false },
       };
     });
