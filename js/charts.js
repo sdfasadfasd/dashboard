@@ -140,7 +140,7 @@ const Charts = (() => {
         name: v.plate + ' ' + v.from + '→' + v.to + ' ' + v.status,
         value: [v.lng, v.lat],
         symbol: truck,
-        symbolSize: 14,
+        symbolSize: 10,
         itemStyle: { color: v.status === '在途' ? '#00d2ff' : '#ffd740' },
         label: { show: false },
       };
@@ -185,8 +185,8 @@ const Charts = (() => {
           coordinateSystem: 'geo',
           polyline: false,
           data: linesData,
-          lineStyle: { color: 'rgba(0,210,255,0.3)', width: 1, curveness: 0.3 },
-          effect: { show: true, period: 5, trailLength: 0.15, symbol: 'circle', symbolSize: 3, color: '#00e676' },
+          lineStyle: { color: 'rgba(0,210,255,0.2)', width: 0.5, curveness: 0.3 },
+          effect: { show: true, period: 6, trailLength: 0.08, symbol: 'circle', symbolSize: 2, color: '#00e676' },
           zlevel: 3,
         },
         // 车辆
