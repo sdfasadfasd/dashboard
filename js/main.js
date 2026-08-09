@@ -187,7 +187,7 @@
     }
     mapDom.innerHTML = '';
     var vehData = DataStore.getVehicleData();
-    var vehRoutes = vehData.vehicles.map(function(v, i) {
+    var vehRoutes = vehData.vehicles.filter(function(v,i){return i%3===0;}).map(function(v, i) {
       var hubs = DataStore.logisticsHubs();
       var fromHub = hubs[0];
       return { from: {name:v.from,lng:fromHub.lng,lat:fromHub.lat}, to: {name:v.plate,lng:v.lng,lat:v.lat}, value:100 };
