@@ -149,7 +149,7 @@ const DataStore = (() => {
     var jxCenter = [114.31, 30.35];
     var vehicles = DEFAULT_VEHICLES.map(function(v, i) {
       var coord;
-      if (v.plate === '鄂W37861') { coord = [114.31, 30.24]; }
+      if (v.plate === '鄂W37861') { coord = [114.31, 30.20]; }
       else {
         var base;
         if (i >= 15) { base = [jxCenter[0] + (Math.random()-0.5)*0.08, jxCenter[1] + (Math.random()-0.5)*0.08]; }
