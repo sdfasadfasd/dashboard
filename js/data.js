@@ -140,14 +140,22 @@ const DataStore = (() => {
   ];
   function getVehicleData() {
     // 15个区中心 + 5个随机位置
+    // 15个区中心点（用于随机偏移基准）
     var centers = [
-      [114.30,30.59],[114.28,30.58],[114.26,30.57],[114.26,30.55],[114.31,30.54], // 江岸江汉硚口汉阳武昌
-      [114.39,30.63],[114.40,30.50],[114.14,30.62],[114.08,30.31],[114.03,30.58], // 青山洪山东西湖汉南蔡甸
-      [114.31,30.35],[114.37,30.87],[114.80,30.84],[114.45,30.50],[114.17,30.48]]; // 江夏黄陂新洲东湖经开
+      [114.30,30.60],[114.28,30.58],[114.27,30.57],[114.27,30.55],[114.31,30.55],
+      [114.40,30.64],[114.40,30.50],[114.14,30.62],[114.08,30.31],[114.03,30.58],
+      [114.31,30.35],[114.37,30.88],[114.80,30.84],[114.45,30.50],[114.17,30.48]];
+    // 江夏区中心额外多放车
+    var jxCenter = [114.31, 30.35];
     var vehicles = DEFAULT_VEHICLES.map(function(v, i) {
       var coord;
-      if (i < 15) { coord = centers[i]; }
-      else { coord = [114.10 + Math.random()*0.5, 30.35 + Math.random()*0.4]; }
+      if (v.plate === '鄂W37861') { coord = [114.31, 30.24]; }
+      else {
+        var base;
+        if (i >= 15) { base = [jxCenter[0] + (Math.random()-0.5)*0.08, jxCenter[1] + (Math.random()-0.5)*0.08]; }
+        else { base = centers[i]; }
+        coord = [base[0] + (Math.random()-0.5)*0.04, base[1] + (Math.random()-0.5)*0.04];
+      }
       var status = (i===3||i===7||i===11||i===16||i===18) ? '返程' : '在途';
       return { plate:v.plate, driver:v.driver||'', from:v.from||'', to:v.to||'', status:status, speed:40+Math.floor(Math.random()*20), eta:(15+Math.floor(Math.random()*40))+'min', lng:coord[0], lat:coord[1] };
     });
