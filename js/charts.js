@@ -117,48 +117,37 @@ const Charts = (() => {
     return chart;
   }
 
-  /* ================ 中国地图 + 物流飞线 ================ */
+  /* ================ 武汉物流地图 ================ */
   function renderMap(domId, geoJSON, hubs, routes, vehicles) {
     const dom = document.getElementById(domId);
     if (!dom) return null;
 
-    // 注册地图（兼容全国/省级 GeoJSON）
     echarts.registerMap('hubei', geoJSON);
-
     const chart = echarts.init(dom);
 
-    // 飞线数据（终点=车辆位置）
-    const linesSeries = routes.map(function(r) {
+    // 飞线
+    const linesData = routes.map(function(r) {
       return {
-        name: r.to.name,
         coords: [[r.from.lng, r.from.lat], [r.to.lng, r.to.lat]],
-        lineStyle: { color: COLORS.cyan, width: 1, opacity: 0.5, curveness: 0.2 },
+        lineStyle: { color: 'rgba(0,210,255,0.35)', width: 1, curveness: 0.3 },
       };
     });
 
-    // 厢式货车图标 (Material Design local_shipping)
-    var truckIcon = 'path://M20,8 L17,8 L17,4 L3,4 C1.9,4 1,4.9 1,6 L1,17 L3,17 C3,18.66 4.34,20 6,20 C7.66,20 9,18.66 9,17 L15,17 C15,18.66 16.34,20 18,20 C19.66,20 21,18.66 21,17 L23,17 L23,12 Z M6,18.5 C5.17,18.5 4.5,17.83 4.5,17 C4.5,16.17 5.17,15.5 6,15.5 C6.83,15.5 7.5,16.17 7.5,17 C7.5,17.83 6.83,18.5 6,18.5 Z M19.5,9 L21.46,11.5 L17,11.5 L17,9 Z M18,18.5 C17.17,18.5 16.5,17.83 16.5,17 C16.5,16.17 17.17,15.5 18,15.5 C18.83,15.5 19.5,16.17 19.5,17 C19.5,17.83 18.83,18.5 18,18.5 Z';
-
-    // 车辆位置标记
-    const vehicleScatter = (vehicles || []).map(function(v) {
+    // 车辆圆点
+    const vehMarkers = (vehicles || []).map(function(v) {
       return {
-        name: v.plate + ' ' + v.from + '→' + v.to,
+        name: v.plate + ' ' + v.from + '→' + v.to + ' ' + v.status,
         value: [v.lng, v.lat],
-        symbol: truckIcon,
-        symbolSize: 20,
-        itemStyle: { color: v.status === '在途' ? '#00d2ff' : '#ffd740', shadowBlur: 8, shadowColor: 'rgba(0,210,255,0.6)' },
+        symbol: 'circle',
+        symbolSize: 8,
+        itemStyle: { color: v.status === '在途' ? '#00d2ff' : '#ffd740', borderColor: '#fff', borderWidth: 1.5, shadowBlur: 6, shadowColor: 'rgba(0,210,255,0.5)' },
         label: { show: false },
       };
     });
 
     const opt = {
       backgroundColor: 'transparent',
-      tooltip: {
-        trigger: 'item',
-        backgroundColor: 'rgba(10, 18, 50, 0.92)',
-        borderColor: 'rgba(0, 210, 255, 0.35)',
-        textStyle: { color: '#e0e8ff', fontSize: 12 },
-      },
+      tooltip: { trigger: 'item', backgroundColor: 'rgba(10,18,50,0.9)', borderColor: 'rgba(0,210,255,0.3)', textStyle: { color: '#e0e8ff', fontSize: 11 } },
       geo: {
         map: 'hubei',
         roam: true,
@@ -166,64 +155,45 @@ const Charts = (() => {
         center: [114.35, 30.55],
         aspectScale: 0.72,
         itemStyle: {
-          areaColor: 'rgba(10, 25, 60, 0.7)',
-          borderColor: 'rgba(0, 180, 255, 0.3)',
-          borderWidth: 1,
-          shadowColor: 'rgba(0, 150, 255, 0.15)',
-          shadowBlur: 8,
+          areaColor: 'rgba(8, 20, 50, 0.75)',
+          borderColor: 'rgba(0, 180, 255, 0.25)',
+          borderWidth: 1.5,
         },
         emphasis: {
-          itemStyle: {
-            areaColor: 'rgba(20, 50, 100, 0.85)',
-            borderColor: 'rgba(0, 210, 255, 0.7)',
-            borderWidth: 2,
-          },
+          itemStyle: { areaColor: 'rgba(15, 35, 80, 0.9)', borderColor: 'rgba(0,210,255,0.6)', borderWidth: 2 },
+          label: { color: '#fff', fontSize: 11 },
         },
-        label: { show: true, color: '#8899cc', fontSize: 10 },
+        label: { show: true, color: '#8899cc', fontSize: 9 },
       },
       series: [
-        // 总部标记
+        // 总部脉冲
         {
-          type: 'scatter',
+          type: 'effectScatter',
           coordinateSystem: 'geo',
-          data: [{
-            name: '总部',
-            value: [hubs[0].lng, hubs[0].lat],
-            symbol: 'pin',
-            symbolSize: 32,
-            itemStyle: { color: '#ff4081', shadowBlur: 12, shadowColor: 'rgba(255,64,129,0.6)' },
-            label: { show: true, position: 'right', color: '#fff', fontSize: 12, fontWeight: 'bold' },
-          }],
+          data: [{ name: '总部', value: [hubs[0].lng, hubs[0].lat] }],
+          symbol: 'circle',
+          symbolSize: 12,
+          rippleEffect: { brushType: 'stroke', scale: 4, period: 3 },
+          itemStyle: { color: '#ff4081', shadowBlur: 10, shadowColor: 'rgba(255,64,129,0.6)' },
+          label: { show: true, position: 'right', color: '#fff', fontSize: 11, fontWeight: 'bold', offset: [4,0] },
           zlevel: 5,
         },
-        // 静态飞线
+        // 飞线
         {
           type: 'lines',
           coordinateSystem: 'geo',
           polyline: false,
-          data: linesSeries,
-          lineStyle: {
-            color: COLORS.cyan,
-            width: 0.6,
-            opacity: 0.25,
-            curveness: 0.1,
-          },
-          effect: {
-            show: true,
-            period: 8,
-            trailLength: 0.02,
-            symbol: 'arrow',
-            symbolSize: 2,
-            color: '#00e676',
-          },
-          zlevel: 4,
+          data: linesData,
+          lineStyle: { color: 'rgba(0,210,255,0.3)', width: 1, curveness: 0.3 },
+          effect: { show: true, period: 5, trailLength: 0.15, symbol: 'circle', symbolSize: 3, color: '#00e676' },
+          zlevel: 3,
         },
-        // 车辆位置
+        // 车辆
         {
           type: 'scatter',
           coordinateSystem: 'geo',
-          data: vehicleScatter,
-          zlevel: 6,
+          data: vehMarkers,
+          zlevel: 4,
         },
       ],
     };
