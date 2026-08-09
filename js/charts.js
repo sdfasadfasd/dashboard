@@ -182,6 +182,20 @@ const Charts = (() => {
         label: { show: true, color: '#8899cc', fontSize: 10 },
       },
       series: [
+        // 总部标记
+        {
+          type: 'scatter',
+          coordinateSystem: 'geo',
+          data: [{
+            name: '总部',
+            value: [hubs[0].lng, hubs[0].lat],
+            symbol: 'pin',
+            symbolSize: 32,
+            itemStyle: { color: '#ff4081', shadowBlur: 12, shadowColor: 'rgba(255,64,129,0.6)' },
+            label: { show: true, position: 'right', color: '#fff', fontSize: 12, fontWeight: 'bold' },
+          }],
+          zlevel: 5,
+        },
         // 静态飞线
         {
           type: 'lines',
@@ -301,7 +315,7 @@ const Charts = (() => {
           position: 'outside',
           formatter: '{b} {d}%',
           color: '#e0e8ff',
-          fontSize: count <= 4 ? 10 : 10,
+          fontSize: 10,
           fontWeight: 'bold',
           distanceToLabelLine: 2,
         },
